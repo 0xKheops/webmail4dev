@@ -14,9 +14,10 @@ I also see this project as an opportunity to train myself on nodejs, react/redux
 
 For now, the application isn't available as an executable binary.
 
-The process for running the app is the following :
+The process for installing the app is the following :
 
-* clone the repository locally
+* make sure [nodejs](https://nodejs.org/en/) is installed
+* download clone the repository locally
 * run the following commands :
 
 ```bash
