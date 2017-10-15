@@ -2,11 +2,20 @@ const fs = require('fs');
 const path = require('path');
 
 exports.findAll = function (req, res) {
-    fs.readdir("./data", (err, files) => {
+
+    // TODO : use env variable
+    const dataDir = "./data";
+
+    // ensure the data directory exists
+    if (!fs.existsSync(dataDir)){
+        fs.mkdirSync(dataDir);
+    }
+
+    fs.readdir(dataDir, (err, files) => {
         const arFiles = [];
         files.forEach(file => {
             console.log(file);
-            const filepath = path.resolve("data/" + file);
+            const filepath = path.resolve(dataDir + "/" + file);
             arFiles.push({
                 filename: file,
                 content: require(filepath), // JSON.parse(fs.readFileSync(, 'utf8'))
