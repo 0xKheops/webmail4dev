@@ -17,13 +17,16 @@ import reducer from './reducers'
 import * as actions from "./actions";
 import thunkMiddleware from 'redux-thunk';
 import * as deepEqual from "deep-equal";
+import { Router, Route } from "react-router";
 
 const loggerMiddleware = createLogger()
 const store = createStore(reducer,
     applyMiddleware(thunkMiddleware, loggerMiddleware),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
-ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
+ReactDOM.render(<Provider store={store}>
+    <App />
+</Provider>, document.getElementById('root'));
 registerServiceWorker();
 
 async function loadMails() {
@@ -41,11 +44,11 @@ async function loadMails() {
         // refresh mails list
         store.dispatch(actions.displayMails(mails));
 
-        // define current email if there is none
-        state = store.getState();
+    // define current email if there is none
+    state = store.getState();
         if (mails.length > 0 && !state.currentMailFilename) {
-            console.log(mails[0]);
-            store.dispatch(actions.displayMail(mails[0].filename));
+        console.log(mails[0]);
+    store.dispatch(actions.displayMail(mails[0].filename));
         }
     }
 }
