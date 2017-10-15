@@ -15,14 +15,13 @@ import { createStore, applyMiddleware } from 'redux'
 import registerServiceWorker from './registerServiceWorker';
 import reducer from './reducers'
 import * as actions from "./actions";
-import thunkMiddleware from 'redux-thunk'
+import thunkMiddleware from 'redux-thunk';
+import * as deepEqual from "deep-equal";
 
 const loggerMiddleware = createLogger()
 const store = createStore(reducer,
     applyMiddleware(thunkMiddleware, loggerMiddleware),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-
-//store.dispatch(actions.fetchMails());
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 registerServiceWorker();
@@ -30,7 +29,15 @@ registerServiceWorker();
 async function loadMails() {
     const req = await fetch("/api/mails");
     const mails = await req.json();
-    console.log("dispatching");
-    store.dispatch(actions.displayMails(mails));
+
+    const state = store.getState();
+    const currentMails = state && state.mails;
+
+    if (!deepEqual(currentMails, mails)) {
+        console.log("dispatching");
+        store.dispatch(actions.displayMails(mails));
+    }
 }
 loadMails();
+
+setInterval(loadMails, 5000);

@@ -5,7 +5,6 @@ const mails = (state = [], action) => {
   switch (action.type) {
     case 'DISPLAY_MAILS':
       return [
-        ...state,
         ...action.mails
       ];
     case 'DELETE_MAIL':
