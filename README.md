@@ -37,7 +37,6 @@ You can use the SendEmail.ps1 script from the repo to send a test email to the l
 
 ## Known issues
 
-* users have to refresh (hit F5) to see new mails
 * users cannot delete emails
 * smtp and web ports aren't configurable without modifying the code
 * not distributed as a binary
