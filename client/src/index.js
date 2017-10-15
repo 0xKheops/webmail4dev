@@ -27,18 +27,23 @@ ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementB
 registerServiceWorker();
 
 async function loadMails() {
+
+    // retrieve emails from REST api
     const req = await fetch("/api/mails");
     const mails = await req.json();
 
     let state = store.getState();
     const currentMails = state && state.mails;
 
+    // if mails are different
     if (!deepEqual(currentMails, mails)) {
-        console.log("dispatching");
+
+        // refresh mails list
         store.dispatch(actions.displayMails(mails));
 
+        // define current email if there is none
         state = store.getState();
-        if( mails.length > 0 && !state.currentMailFilename){
+        if (mails.length > 0 && !state.currentMailFilename) {
             console.log(mails[0]);
             store.dispatch(actions.displayMail(mails[0].filename));
         }

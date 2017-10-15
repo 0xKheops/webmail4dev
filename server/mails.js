@@ -14,7 +14,7 @@ exports.findAll = function (req, res) {
     fs.readdir(dataDir, (err, files) => {
         const arFiles = [];
         files.forEach(file => {
-            console.log(file);
+            
             const filepath = path.resolve(dataDir + "/" + file);
             arFiles.push({
                 filename: file,

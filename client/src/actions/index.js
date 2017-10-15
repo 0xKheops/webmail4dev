@@ -31,16 +31,16 @@ function receiveMails(json) {
   }
 }
 
-function shouldFetchMails(state) {
-    const mails = state.mails;
-    if (!mails) {
-      return true
-    } else if (mails.isFetching) {
-      return false
-    } else {
-      return mails.didInvalidate
-    }
-  }
+// function shouldFetchMails(state) {
+//     const mails = state.mails;
+//     if (!mails) {
+//       return true
+//     } else if (mails.isFetching) {
+//       return false
+//     } else {
+//       return mails.didInvalidate
+//     }
+//   }
 
 export function fetchMails(){
     return dispatch => {
