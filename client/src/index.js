@@ -30,12 +30,18 @@ async function loadMails() {
     const req = await fetch("/api/mails");
     const mails = await req.json();
 
-    const state = store.getState();
+    let state = store.getState();
     const currentMails = state && state.mails;
 
     if (!deepEqual(currentMails, mails)) {
         console.log("dispatching");
         store.dispatch(actions.displayMails(mails));
+
+        state = store.getState();
+        if( mails.length > 0 && !state.currentMailFilename){
+            console.log(mails[0]);
+            store.dispatch(actions.displayMail(mails[0].filename));
+        }
     }
 }
 loadMails();
