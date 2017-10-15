@@ -2,13 +2,13 @@
 
 This nodejs application is composed of a SMTP server and a web server that shows all emails received by the smtp server.
 
-It is meant to be used as an easy to use mail server for testing applications that send emails, such as SharePoint.
+It is meant to be used as an easy to use "test mail server" for testing applications that send emails, such as SharePoint. Using such a mail server ensures that no emails is sent to a real mailbox, while making it easy for test users to read those emails.
 
 ![screenshot.png](screenshot.png)
 
-As a SharePoint developper (noone's perfect), when testing a workflow or other developments in a user acceptance environment, I often need to provide an easy way for key users to test emails sent by the platform. Using papercut or smtp4dev is ok for developers, but asking end users to login remotely to a server to launch a windows app isn't a perfect solution. webmail4dev is meant to address this scenario, as it's web based and requires no authentication.
+As a SharePoint developper (noone's perfect), when testing a workflow or other developments in a user acceptance environment, I often need to provide an easy way for key users to test emails sent by the platform while ensuring that this platform isn't sending emails to real mailboxs. Using papercut or smtp4dev is great for developers, but asking end users to login remotely to a server and launch a windows app for reading those mails isn't a perfect solution. webmail4dev is meant to address this scenario, as it's web based and requires no authentication.
 
-I also see this project as an opportunity to train myself on nodejs, react/redux, sockets, github, etc. So all improvement suggestions are welcome :)
+I also see this project as an opportunity to train myself on nodejs, react/redux, sockets, git/github, etc. that I don't use at work. So all improvement suggestions are welcome :)
 
 ## Install
 
@@ -27,14 +27,18 @@ npm install
 npm start
 ```
 
-* Browse http://localhost:1337
+* configure the platform that you want to test so it sends email to the machine that host the app, on port 25, anonymously.
+* browse http://localhost:1337 to view mails sent by the platform
 
-This will start the SMTP on port 25, the REST api on port 3001, and the web server on the port 1337.
+This will start the SMTP on port 25, the REST api on port 3001, and the web server on the port 1337. Received emails will be stored in the data directory.
 
-## Known issues (will be adressed ASAP)
+## Known issues
 
 * not working on IE
-* you have to refresh (hit F5) to load new mails
+* users have to refresh (hit F5) to see new mails
 * attachments not displayed
+* users cannot delete emails
 * smtp and web ports aren't configurable without modifying the code
 * not distributed as a binary
+
+Please be sure that I'm working on fixing this issues ASAP.
