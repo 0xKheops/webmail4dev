@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "proxy": "http://localhost:3001/",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "material-ui": "^0.19.4",
     "moment": "^2.19.1",
     "prop-types": "^15.6.0",

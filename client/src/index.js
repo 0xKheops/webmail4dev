@@ -1,3 +1,10 @@
+
+// support for IE11
+import "babel-polyfill";
+
+// registers Roboto font : https://github.com/callemall/material-ui/issues/6256
+import 'typeface-roboto';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -9,9 +16,6 @@ import registerServiceWorker from './registerServiceWorker';
 import reducer from './reducers'
 import * as actions from "./actions";
 import thunkMiddleware from 'redux-thunk'
-
-//registers Roboto font : https://github.com/callemall/material-ui/issues/6256
-import 'typeface-roboto';
 
 const loggerMiddleware = createLogger()
 const store = createStore(reducer,

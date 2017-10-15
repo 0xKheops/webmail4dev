@@ -37,11 +37,10 @@ You can use the SendEmail.ps1 script from the repo to send a test email to the l
 
 ## Known issues
 
-* not working on IE
 * users have to refresh (hit F5) to see new mails
-* attachments not displayed
 * users cannot delete emails
 * smtp and web ports aren't configurable without modifying the code
 * not distributed as a binary
+* most common emails header fields aren't displayed
 
 Please be sure that I'm working on fixing this issues ASAP.
