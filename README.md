@@ -18,7 +18,7 @@ The process for installing the app is the following :
 
 * make sure [nodejs](https://nodejs.org/en/) is installed
 * download clone the repository locally
-* run the following commands :
+* from the repository's directory, run the following commands :
 
 ```bash
 cd client
