@@ -1,0 +1,29 @@
+{
+  "name": "webmail4dev",
+  "version": "0.0.1",
+  "description": "This nodejs application is composed of a SMTP server and a web server that shows all emails received by the smtp server.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node start-server.js",
+    "client": "node start-client.js"
+  },
+  "author": "Arnault Nouvel",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mailparser": "^2.1.0",
+    "smtp-server": "^3.3.0",
+    "uuid": "^3.1.0",
+    "concurrently": "^3.5.0"
+  },
+  "main": "start-client.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArnaultNouvel/webmail4dev.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ArnaultNouvel/webmail4dev/issues"
+  },
+  "homepage": "https://github.com/ArnaultNouvel/webmail4dev#readme"
+}
