@@ -33,6 +33,8 @@ npm start
 
 This will start the SMTP on port 25, the REST api on port 3001, and the web server on the port 1337. Received emails will be stored in the data directory.
 
+You can use the SendEmail.ps1 script from the repo to send a test email to the local server.
+
 ## Known issues
 
 * not working on IE
