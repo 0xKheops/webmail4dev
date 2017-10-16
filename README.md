@@ -16,7 +16,7 @@ For now, the application isn't available as an executable binary.
 
 The process for installing the app is the following :
 
-* make sure [nodejs](https://nodejs.org/en/) is installed
+* make sure [nodejs](https://nodejs.org/en/) is installed (6.x minimum)
 * download clone the repository locally
 * from the repository's directory, run the following commands :
 
