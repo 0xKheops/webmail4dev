@@ -1,8 +1,8 @@
 const smtp = require("./server/smtp");
 const web = require("./server/web");
 
-smtp.registerSmtpServer(25, "./data");
+smtp.startSmtpServer(25, "./data");
 console.log("smtp server started");
 
-web.registerWebServer(3001, "./data");
+web.startWebServer(2581, "./data");
 console.log("api web server started");
