@@ -1,6 +1,6 @@
 # webmail4dev
 
-This nodejs application is composed of a SMTP server and a web server that shows all emails received by the smtp server.
+webmail4dev starts a local smtp server (with no auth) and a web server that displays all emails received by the smtp server.
 
 It is meant to be used as an easy to use "test mail server" for testing applications that send emails, such as SharePoint. Using such a mail server ensures that no emails is sent to a real mailbox, while making it easy for test users to read those emails.
 
@@ -10,36 +10,26 @@ As a SharePoint developper (noone's perfect), when testing a workflow or other d
 
 I also see this project as an opportunity to train myself on nodejs, react/redux, sockets, git/github, etc. that I don't use at work. So all improvement suggestions are welcome :)
 
-## Install
+## Usage
 
-For now, the application isn't available as an executable binary.
+1. Clone the repository
 
-The process for installing the app is the following :
-
-* make sure [nodejs](https://nodejs.org/en/) is installed
-* download clone the repository locally
-* from the repository's directory, run the following commands :
+2. Install it (needs at least Node 6.x) :
 
 ```bash
-cd client
 npm install
-cd ..
-npm install
+```
+
+3. And run this command in repository's directory :
+
+```bash
 npm start
 ```
 
-* configure the platform that you want to test so it sends email to the machine that host the app, on port 25, anonymously.
-* browse http://localhost:1337 to view mails sent by the platform
+### Options
 
-This will start the SMTP on port 25, the REST api on port 3001, and the web server on the port 1337. Received emails will be stored in the data directory.
+Run this command to see a list of all available options:
 
-You can use the SendEmail.ps1 script from the repo to send a test email to the local server.
-
-## Known issues
-
-* users cannot delete emails
-* smtp and web ports aren't configurable without modifying the code
-* not distributed as a binary
-* most common emails header fields aren't displayed
-
-Please be sure that I'm working on fixing this issues ASAP.
+```bash
+serve help
+```

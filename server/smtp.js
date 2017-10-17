@@ -4,20 +4,34 @@ const SMTPServer = require('smtp-server').SMTPServer;
 const simpleParser = require('mailparser').simpleParser;
 const uuid = require("uuid");
 
-exports.registerSmtpServer = function (port = 25, datadir = "data") {
+exports.startSmtpServer = function (port, datadir) {
 
     const server = new SMTPServer({
+       
         authOptional: true,
+       
         onData(stream, session, callback) {
-            console.log("received an email !");
 
             simpleParser(stream, (err, mail) => {
-                
-                const filepath = `${datadir}/` + uuid.v4() + ".json";
-                fs.writeFileSync(filepath, JSON.stringify(mail));
-                console.log("stored incoming email : " + filepath);
+
+                if (err) {
+                    console.log("Received mail ERROR", err)
+                } else {
+
+                    console.log(`received an email from ${mail.from.text} : ${mail.subject}`);
+
+                    try {
+                        const filepath = `${datadir}/` + uuid.v4() + ".json";
+                        fs.writeFileSync(filepath, JSON.stringify(mail));
+                        console.log("stored at : " + filepath);
+                    } catch (errSave) { 
+                        console.log("error saving email in " + datadir);
+                    }
+
+                }
 
                 callback();
+
             });
         }
     });
