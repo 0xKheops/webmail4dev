@@ -5,6 +5,7 @@
   "main": "start.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "cd client && npm install && npm run build",
     "start": "node start.js --smtp=25 --web=2580 --data=\"./data\"",
     "dev": "concurrently \"npm run server\" \"npm run client\" --kill-others",
     "server": "node start-server.js",
@@ -18,8 +19,7 @@
     "mailparser": "^2.1.0",
     "meow": "^3.7.0",
     "smtp-server": "^3.3.0",
-    "uuid": "^3.1.0",
-    "client": "file:client"
+    "uuid": "^3.1.0"
   },
   "repository": {
     "type": "git",
