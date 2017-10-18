@@ -12,8 +12,9 @@ exports.startWebServer = function (port, datadir) {
 
     // register rest end points
     server.get('/api/mails', mails.findAll);
-    //server.delete('/api/mails/:id', wine.deleteWine);
-
+    server.delete('/api/mails/:filename', mails.delete);
+    server.delete('/api/mails', mails.deleteAll);
+    
     // booya
     server.listen(port);
 

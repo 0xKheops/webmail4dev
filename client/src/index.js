@@ -12,8 +12,11 @@ import App from './components/App';
 import { Provider } from 'react-redux'
 import { configureStore } from "./configureStore";
 import registerServiceWorker from './registerServiceWorker';
+import {loadMails} from "./actions";
 
 const store = configureStore();
+
+store.dispatch(loadMails());
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 

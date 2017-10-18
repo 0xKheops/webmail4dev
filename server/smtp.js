@@ -12,6 +12,9 @@ exports.startSmtpServer = function (port, datadir) {
        
         onData(stream, session, callback) {
 
+           // stream.pipe(process.stdout); // print message to console
+            //stream.on('end', callback)
+
             simpleParser(stream, (err, mail) => {
 
                 if (err) {

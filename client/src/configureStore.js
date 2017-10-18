@@ -1,47 +1,50 @@
 //import React from 'react';
 import * as deepEqual from "deep-equal";
-//import { createLogger } from 'redux-logger'
+import { createLogger } from 'redux-logger'
 import {
     createStore,
-   // applyMiddleware,
+    applyMiddleware,
 } from 'redux'
 //import thunkMiddleware from 'redux-thunk';
 import reducer from './reducers'
 import * as actions from "./actions";
+import thunk from 'redux-thunk';
 
 const configureStore = () => {
 
-    //const loggerMiddleware = createLogger()
-    const store = createStore(reducer,
-        //applyMiddleware(thunkMiddleware, loggerMiddleware),
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+    const logger = createLogger()
+    const store = createStore(reducer, applyMiddleware(thunk, logger));
 
-    async function loadMails() {
 
-        // retrieve emails from REST api
-        const req = await fetch("/api/mails");
-        const mails = await req.json();
+    // ,
+    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
-        let state = store.getState();
-        const currentMails = state && state.mails;
+    // async function loadMails() {
 
-        // if mails are different
-        if (!deepEqual(currentMails, mails)) {
+    //     // retrieve emails from REST api
+    //     const req = await fetch("/api/mails");
+    //     const mails = await req.json();
 
-            // refresh mails list
-            store.dispatch(actions.displayMails(mails));
+    //     let state = store.getState();
+    //     const currentMails = state && state.mails;
 
-            // define current email if there is none
-            state = store.getState();
-            if (mails.length > 0 && !state.currentMailFilename) {
-                store.dispatch(actions.displayMail(mails[0].filename));
-            }
-        }
-    }
-    loadMails();
+    //     // if mails are different
+    //     if (!deepEqual(currentMails, mails)) {
+
+    //         // refresh mails list
+    //         store.dispatch(actions.displayMails(mails));
+
+    //         // define current email if there is none
+    //         state = store.getState();
+    //         if (mails.length > 0 && !state.currentMailFilename) {
+    //             store.dispatch(actions.displayMail(mails[0].filename));
+    //         }
+    //     }
+    // }
+    // loadMails();
 
     // auto update
-    setInterval(loadMails, 5000);
+    //setInterval(loadMails, 5000);
 
     return store;
 

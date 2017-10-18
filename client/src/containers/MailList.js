@@ -1,60 +1,69 @@
-import React, { Component } from 'react';
-import { List, ListItem, makeSelectable } from 'material-ui/List';
+import React from 'react';
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import { displayMail } from "../actions";
+import { bindActionCreators } from 'redux';
+import * as actions from "../actions";
+
+import { ListItem } from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
+import RaisedButton from 'material-ui/RaisedButton';
+import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
+import SelectableList from "../components/SelectableList";
 
-const mapStateToProps = (state, ownProps) => (state);
+// import PropTypes from 'prop-types'
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+class MailList extends React.Component {
+    constructor(props, context) {
+        super(props, context);
 
-    ...stateProps,
-
-    ...ownProps,
-
-    onMailClick: (filename) => {
-        if (filename !== stateProps.currentMailFilename)
-            dispatchProps.dispatch(displayMail(filename))
-    }
-
-});
-
-let SelectableList = makeSelectable(List);
-
-function wrapState(ComposedComponent) {
-    return class SelectableList extends Component {
-        static propTypes = {
-            children: PropTypes.node.isRequired,
-            selectedFilename: PropTypes.string,
+        this.state = {
+            mails: Object.assign([], [...this.props.mails]),
+            currentMailFilename: this.props.currentMailFilename,
         };
 
-        render() {
-            return (
-                <ComposedComponent value={this.props.selectedFilename} >
-                    {this.props.children}
-                </ComposedComponent>
-            );
-        }
-    };
+    }
+
+    onMailClick(filename) {
+        if (filename !== this.state.currentMailFilename)
+            this.props.actions.displayMail(filename);
+    }
+
+    onDeleteAllClick() {
+        this.props.actions.deleteAllMails();
+    }
+
+    render() {
+        return <div className="MailList">
+            <div className="MailList-Content">
+                <SelectableList selectedFilename={this.props.currentMailFilename}>
+                    <Subheader>Inbox</Subheader>
+                    {this.props.mails.map(m => <ListItem key={m.filename}
+                        value={m.filename}
+                        primaryText={m.content.from.text}
+                        secondaryText={m.content.subject}
+                        onClick={() => this.onMailClick(m.filename)} />)}
+                </SelectableList>
+            </div>
+            <Toolbar className="MailList-Toolbar">
+                <ToolbarGroup firstChild={true}>
+                    <RaisedButton label="Delete all" primary={true} onClick={this.onDeleteAllClick.bind(this)} />
+                </ToolbarGroup>
+            </Toolbar>
+        </div>;
+    }
 }
 
-SelectableList = wrapState(SelectableList);
+// MailList.propTypes = {
+//     mails: PropTypes.array.isRequired,
+//     currentMailFilename: PropTypes.string,
+// }
 
+const mapStateToProps = (state, ownProps) => ({
+    mails: [...state.mails],
+    state: state.currentMailFilename,
+});
 
-const MailList = ({ mails, currentMailFilename, onMailClick }) => (
-    <SelectableList selectedFilename={currentMailFilename}>
-        <Subheader>Inbox</Subheader>
-        {mails.map(m => <ListItem key={m.filename} value={m.filename} primaryText={m.content.from.text} secondaryText={m.content.subject} onClick={() => onMailClick(m.filename)} />)}
-    </SelectableList>
-)
+const mapDispatchToProps = (dispatch) => ({
+    actions: bindActionCreators(actions, dispatch)
+});
 
-MailList.propTypes = {
-    mails: PropTypes.arrayOf(PropTypes.shape({
-        filename: PropTypes.string.isRequired,
-        content: PropTypes.object.isRequired,
-    }).isRequired).isRequired,
-    currentMailFilename: PropTypes.string,
-}
-
-export default connect(mapStateToProps, null, mergeProps)(MailList);
+export default connect(mapStateToProps, mapDispatchToProps)(MailList);

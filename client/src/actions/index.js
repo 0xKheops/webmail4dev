@@ -1,52 +1,51 @@
+import * as types from './actionTypes';
+import { mailsApi } from "../api/mailsApi";
 
-export const displayMails = (mails) => ({
-    type: 'DISPLAY_MAILS',
+const displayMailsSuccess = (mails) => ({
+    type: types.DISPLAY_MAILS_SUCCESS,
     mails
 })
 
+export function loadMails() {
+    // make async call to api, handle promise, dispatch action when promise is resolved
+    return async function (dispatch) {
+
+        const mails = await mailsApi.getAllMails();
+        dispatch(displayMailsSuccess(mails));
+
+    };
+}
+
 export const displayMail = (filename) => ({
-    type: 'DISPLAY_MAIL',
+    type: types.DISPLAY_MAIL,
     filename
 })
 
-//unimplemented
-export const deleteMail = (filename) => ({
-    type: 'DELETE_MAIL',
+const deleteAllMailsSuccess = (filename) => ({
+    type: types.DELETE_MAILS_SUCCESS
+})
+
+export function deleteAllMails() {
+    // make async call to api, handle promise, dispatch action when promise is resolved
+    return async function (dispatch) {
+
+        await mailsApi.deleteAllMails();
+        dispatch(deleteAllMailsSuccess());
+
+    };
+}
+
+const deleteMailSuccess = (filename) => ({
+    type: types.DELETE_MAIL_SUCCESS,
     filename
 })
 
-export const REQUEST_MAILS = 'REQUEST_MAILS'
-function requestMails() {
-  return {
-    type: REQUEST_MAILS,
-  }
-}
+export function deleteMail(filename) {
+    // make async call to api, handle promise, dispatch action when promise is resolved
+    return async function (dispatch) {
 
-export const RECEIVE_MAILS = 'RECEIVE_MAILS'
-function receiveMails(json) {
-  return {
-    type: RECEIVE_MAILS,
-    mails: json,
-    receivedAt: Date.now()
-  }
-}
+        await mailsApi.deleteMail(filename);
+        dispatch(deleteMailSuccess(filename));
 
-// function shouldFetchMails(state) {
-//     const mails = state.mails;
-//     if (!mails) {
-//       return true
-//     } else if (mails.isFetching) {
-//       return false
-//     } else {
-//       return mails.didInvalidate
-//     }
-//   }
-
-export function fetchMails(){
-    return dispatch => {
-        dispatch(requestMails());
-        return fetch("/api/mails")
-        .then(response => response.json())
-        .then(json => dispatch(receiveMails(json)))
-    }
+    };
 }

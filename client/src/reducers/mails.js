@@ -1,16 +1,21 @@
+import * as types from '../actions/actionTypes';
+
 const mails = (state = [], action) => {
 
-  console.log(action);
-
   switch (action.type) {
-    case 'DISPLAY_MAILS':
-      return [
-        ...action.mails
-      ];
-    case 'DELETE_MAIL':
+
+    case types.DISPLAY_MAILS_SUCCESS:
+      return [...action.mails];
+
+    case types.DELETE_MAIL_SUCCESS:
       return state.filter(mail => mail.filename !== action.filename);
+
+    case types.DELETE_MAILS_SUCCESS:
+      return [];
+
     default:
-      return state
+      return state;
+
   }
 }
 
