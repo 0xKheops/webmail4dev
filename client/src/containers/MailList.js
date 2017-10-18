@@ -57,22 +57,13 @@ class MailList extends React.Component {
 //     currentMailFilename: PropTypes.string,
 // }
 
-function mapStateToProps(state, ownProps) {
+const mapStateToProps = (state, ownProps) => ({
+    mails: [...state.mails],
+    state: state.currentMailFilename,
+});
 
-    // const stateMails = state.mails;
-    // const filename = state.filename;
-
-    return {
-        mails: [...state.mails],
-        state: state.currentMailFilename,
-    }
-
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(actions, dispatch)
-    };
-}
+const mapDispatchToProps = (dispatch) => ({
+    actions: bindActionCreators(actions, dispatch)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(MailList);
