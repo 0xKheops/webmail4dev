@@ -9,7 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import SelectableList from "../components/SelectableList";
 
-// import PropTypes from 'prop-types'
+ // import PropTypes from 'prop-types'
 
 class MailList extends React.Component {
     constructor(props, context) {
@@ -17,7 +17,7 @@ class MailList extends React.Component {
 
         this.state = {
             mails: Object.assign([], [...this.props.mails]),
-            currentMailFilename: this.props.currentMailFilename,
+            currentMailFilename: props.currentMailFilename,
         };
 
     }
@@ -32,6 +32,7 @@ class MailList extends React.Component {
     }
 
     render() {
+
         return <div className="MailList">
             <div className="MailList-Content">
                 <SelectableList selectedFilename={this.props.currentMailFilename}>
@@ -59,7 +60,7 @@ class MailList extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
     mails: [...state.mails],
-    state: state.currentMailFilename,
+    currentMailFilename: state.currentMailFilename,
 });
 
 const mapDispatchToProps = (dispatch) => ({

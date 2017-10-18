@@ -1,8 +1,4 @@
-const smtp = require("./server/smtp");
-const web = require("./server/web");
+const { startServer } = require("./server/server");
 
-smtp.startSmtpServer(25, "./data");
-console.log("smtp server started");
-
-web.startWebServer(2581, "./data");
-console.log("web & server started");
+// client app in dev mode is configured to proxy 2581 port
+startServer(25, 2581, "./data");
