@@ -31,5 +31,5 @@ npm start
 Run this command to see a list of all available options:
 
 ```bash
-node start -h
+node start --help
 ```
