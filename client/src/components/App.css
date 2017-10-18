@@ -21,8 +21,7 @@
 }
 
 .App-nav{
-  overflow-y:scroll;
-  height:100%;
+  
   min-width: 200px;
   max-width:20%;
 }
@@ -58,6 +57,9 @@
 
 .MailDetails{
   /* padding:20px; */
+  display:flex;
+  flex-direction: column;
+  height:100%;
 }
 
 .MailDetails-Header,
@@ -65,11 +67,39 @@
   padding:20px;
 }
 
+.MailDetails-Content{
+  flex-grow: 1;
+}
+
 .MailDetails-HeaderRow{
   display:flex;
 }
 .MailDetails-HeaderRow label{
   width:100px;
+}
+
+.MailDetails-Attachments{
+  display:flex;
+  flex-wrap: wrap;
+}
+
+.MailDetails-Attachment{
+  margin-top:5px!important;
+  margin-right:10px!important;
+}
+
+.MailList{
+  display:flex;
+  flex-direction: column;
+  height:100%;
+}
+.MailList-Content{
+  overflow-y:scroll;
+  height:100%;
+  flex-grow: 1;
+}
+.MailList-ToolBar{
+
 }
 
 @keyframes App-logo-spin {

@@ -9,11 +9,15 @@ export const displayMail = (filename) => ({
     filename
 })
 
-//unimplemented
 export const deleteMail = (filename) => ({
     type: 'DELETE_MAIL',
     filename
 })
+
+export const deleteAllMails = (filename) => ({
+    type: 'DELETE_MAILS'
+})
+
 
 export const REQUEST_MAILS = 'REQUEST_MAILS'
 function requestMails() {
