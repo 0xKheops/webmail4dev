@@ -1,6 +1,5 @@
-const smtp = require("./server/smtp");
-const web = require("./server/web")
 const meow = require('meow');
+const { startServer } = require("./server/server");
 
 const cli = meow(`
 Usage
@@ -34,14 +33,4 @@ const smtpPort = cli.flags.s || 25
 const webPort = cli.flags.w || 2580
 const dataDir = cli.flags.d || "./data"
 
-// console.log("emails directory : " + dataDir);
-
-// console.log("starting smtp server " + smtpPort);
-smtp.startSmtpServer(smtpPort, dataDir);
-
-// console.log("starting web server " + webPort);
-web.startWebServer(webPort, dataDir);
-
-console.log(`
-Browse emails on http://localhost:${webPort}
-`);
+startServer(smtpPort, webPort, dataDir);

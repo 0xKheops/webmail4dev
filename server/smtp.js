@@ -4,15 +4,15 @@ const SMTPServer = require('smtp-server').SMTPServer;
 const simpleParser = require('mailparser').simpleParser;
 const uuid = require("uuid");
 
-exports.startSmtpServer = function (port, datadir) {
+exports.startSmtpServer = function (port, datadir, onMailReceived) {
 
     const server = new SMTPServer({
-       
+
         authOptional: true,
-       
+
         onData(stream, session, callback) {
 
-           // stream.pipe(process.stdout); // print message to console
+            // stream.pipe(process.stdout); // print message to console
             //stream.on('end', callback)
 
             simpleParser(stream, (err, mail) => {
@@ -24,10 +24,19 @@ exports.startSmtpServer = function (port, datadir) {
                     console.log(`received an email from ${mail.from.text} : ${mail.subject}`);
 
                     try {
-                        const filepath = `${datadir}/` + uuid.v4() + ".json";
+                        const filename = uuid.v4() + ".json";
+                        const filepath = `${datadir}/` + filename;
                         fs.writeFileSync(filepath, JSON.stringify(mail));
                         console.log("stored at : " + filepath);
-                    } catch (errSave) { 
+
+                        if (onMailReceived) {
+                            console.log("broadcasting onMailReceived...")
+                            onMailReceived({
+                                filename: filename,
+                                content: mail
+                            });
+                        }
+                    } catch (errSave) {
                         console.log("error saving email in " + datadir);
                     }
 
@@ -45,5 +54,6 @@ exports.startSmtpServer = function (port, datadir) {
 
     server.listen(port);
     console.log(`SMTP listening on port ${port}...`);
+
 
 }

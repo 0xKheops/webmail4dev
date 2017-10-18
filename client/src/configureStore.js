@@ -1,20 +1,20 @@
 //import React from 'react';
-import * as deepEqual from "deep-equal";
+import { createStore, applyMiddleware, } from 'redux'
 import { createLogger } from 'redux-logger'
-import {
-    createStore,
-    applyMiddleware,
-} from 'redux'
-//import thunkMiddleware from 'redux-thunk';
+import createSocketIoMiddleware from 'redux-socket.io';
+import io from 'socket.io-client';
 import reducer from './reducers'
-import * as actions from "./actions";
 import thunk from 'redux-thunk';
 
 const configureStore = () => {
 
-    const logger = createLogger()
-    const store = createStore(reducer, applyMiddleware(thunk, logger));
+    // TODO voir sans parametre si ca marche
+    let socket = io();
+    let socketIoMiddleware = createSocketIoMiddleware(socket, "server/");
 
+    const logger = createLogger()
+    const store = createStore(reducer, applyMiddleware(thunk, logger, socketIoMiddleware));
+   
 
     // ,
     // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());

@@ -2,6 +2,7 @@
 // load mails
 export const DISPLAY_MAILS_SUCCESS = 'DISPLAY_MAILS_SUCCESS';
 export const DISPLAY_MAIL = 'DISPLAY_MAIL';
+export const RECEIVED_MAIL = "RECEIVED_MAIL";
 
 // delete mails
 export const DELETE_MAILS_SUCCESS = 'DELETE_MAILS_SUCCESS';
