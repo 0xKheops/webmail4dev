@@ -23,7 +23,8 @@
 .App-nav{
   
   min-width: 200px;
-  max-width:20%;
+  max-width: 20%;
+  /* //width:20%; */
 }
 
 .App-main{

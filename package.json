@@ -8,7 +8,7 @@
     "install": "cd client && npm install && npm run build",
     "start": "node start.js --smtp=25 --web=2580 --data=\"./data\"",
     "dev": "concurrently \"npm run server\" \"npm run client\" --kill-others",
-    "server": "nodemon start-server.js -- watch server",
+    "server": "nodemon start-server.js --watch server",
     "client": "node start-client.js"
   },
   "author": "Arnault Nouvel <arnault.nouvel@wisepoint.fr>",
