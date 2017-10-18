@@ -1,22 +1,22 @@
 const http = require("http");
-const express = require('express');
+const express = require("express");
 const socket = require("socket.io");
 
-const mails = require('./mails');
+const mails = require("./mails");
 
 exports.startWebServer = function (port, datadir) {
 
-    //TODO : passer le paramètre datadir à mails
+    // TODO : passer le paramètre datadir à mails
 
     const app = express();
     const server = http.createServer(app);
-    const io = socket(server);
 
     // this handler will be called by smtp server when it receives an email.
     // from here, we can push it to all clients
-    const onMailReceived = function(mail){
-        io.emit("action", {type:"RECEIVED_MAIL", mail});
-    } 
+    const io = socket(server);
+    const onMailReceived = function (mail) {
+        io.emit("action", { type: "RECEIVED_MAIL", mail });
+    };
 
     // io.on("connection", function (socket) {
     //     console.log("connection");
@@ -37,15 +37,16 @@ exports.startWebServer = function (port, datadir) {
     app.use(express.static("client/build"));
 
     // register rest end points
-    app.get('/api/mails', mails.findAll);
-    app.delete('/api/mails/:filename', mails.delete);
-    app.delete('/api/mails', mails.deleteAll);
+    app.get("/api/mails", mails.findAll);
+    app.delete("/api/mails/:filename", mails.delete);
+    app.delete("/api/mails", mails.deleteAll);
 
     // booya
     server.listen(port);
 
     console.log(`express listening on port ${port}`);
 
+
     return onMailReceived;
 
-}
+};
