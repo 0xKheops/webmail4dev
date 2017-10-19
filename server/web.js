@@ -40,7 +40,7 @@ exports.startWebServer = function (port, datadir) {
     // });
 
     // serve static content from ./client/build
-    const staticDir = path.join(__dirname, "../client/build");
+    const staticDir = path.join(__dirname, "../dist/web");
     app.use(express.static(staticDir));
 
     // register rest end points
