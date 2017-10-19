@@ -1,4 +1,4 @@
-
+#! /usr/bin/env node
 const meow = require("meow");
 const { startServer } = require("./server/server");
 

@@ -1,6 +1,7 @@
 const http = require("http");
 const express = require("express");
 const socket = require("socket.io");
+const path = require('path');
 
 const mails = require("./mails");
 
@@ -33,8 +34,14 @@ exports.startWebServer = function (port, datadir) {
     //     })
     // })
 
+    // app.use(function (err, req, res, next) {
+    //     console.error(err.stack);
+    //     //res.status(500).send("Something broke!");
+    // });
+
     // serve static content from ./client/build
-    app.use(express.static("client/build"));
+    const staticDir = path.join(__dirname, "../client/build");
+    app.use(express.static(staticDir));
 
     // register rest end points
     app.get("/api/mails", mails.findAll);
