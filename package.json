@@ -41,5 +41,8 @@
     "eslint-plugin-standard": "^3.0.1",
     "nodemailer": "^4.2.0",
     "nodemon": "^1.12.1"
+  },
+  "bin": {
+    "webmail4dev": "start.js"
   }
 }
