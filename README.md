@@ -1,14 +1,12 @@
 # webmail4dev
 
-webmail4dev starts a local smtp server (with no auth) and a web server that displays all emails received by the smtp server.
+webmail4dev starts a local smtp server (with no auth) and a web server that displays all emails received by the smtp server, meant for testing environments.
 
-It is meant to be used as an easy to use "test mail server" for testing applications that send emails, such as SharePoint. Using such a mail server ensures that no emails is sent to a real mailbox, while making it easy for test users to read those emails.
+It is meant to be used as an web-based fake mail server for testing applications that send emails, such as SharePoint. Using such a mail server ensures that emails are not sent to real mailboxes, while making it easy for test users to read all outgoing emails at once.
+
+It can be seen as a web alternative to [Papercut](https://github.com/ChangemakerStudios/Papercut) or [smtp4dev](https://github.com/rnwood/smtp4dev).
 
 ![screenshot.png](screenshot.png)
-
-As a SharePoint developper (noone's perfect), when testing a workflow or other developments in a user acceptance environment, I often need to provide an easy way for key users to test emails sent by the platform while ensuring that this platform isn't sending emails to real mailboxs. Using papercut or smtp4dev is great for developers, but asking end users to login remotely to a server and launch a windows app for reading those mails isn't a perfect solution. webmail4dev is meant to address this scenario, as it's web based and requires no authentication.
-
-I also see this project as an opportunity to train myself on nodejs, react/redux, sockets, git/github, etc. that I don't use at work. So all improvement suggestions are welcome :)
 
 ## Usage
 

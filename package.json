@@ -1,11 +1,10 @@
 {
   "name": "webmail4dev",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "webmail4dev starts a local smtp server and a web server that displays all emails received by the smtp server.",
   "main": "start.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "cd client && npm install && npm run build",
     "start": "node start.js --smtp=25 --web=2580 --data=\"./data\"",
     "dev": "concurrently \"npm run server\" \"npm run client\" --kill-others",
     "server": "nodemon start-server.js --watch server",
