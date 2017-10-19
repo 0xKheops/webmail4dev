@@ -12,18 +12,11 @@ I also see this project as an opportunity to train myself on nodejs, react/redux
 
 ## Usage
 
-1. Clone the repository
-
-2. Install it (needs at least Node 6.x) :
+Install and run the application :
 
 ```bash
-npm install
-```
-
-3. And run this command in repository's directory :
-
-```bash
-npm start
+npm install -g webmail4dev
+webmail4dev
 ```
 
 ### Options
@@ -31,5 +24,5 @@ npm start
 Run this command to see a list of all available options:
 
 ```bash
-node start --help
+webmail4dev --help
 ```

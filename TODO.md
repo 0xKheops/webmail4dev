@@ -1,6 +1,5 @@
 # TODO
 
-* Linting
 * TDD/Tests
 * Notifications
 * CSS Modules
