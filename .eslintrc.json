@@ -1,0 +1,26 @@
+{
+    "env": {
+        "es6": true,
+        "node": true
+    },
+    "extends": "eslint:recommended",
+    "rules": {
+        // "indent": [
+        //     "error",
+        //     "space"
+        // ],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "quotes": [
+            "error",
+            "double"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
+        "no-console": 0 // disallow use of console (off by default in the node environment)
+    }
+}

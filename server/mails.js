@@ -1,5 +1,5 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 exports.findAll = function (req, res) {
 
@@ -20,12 +20,12 @@ exports.findAll = function (req, res) {
             arFiles.push({
                 filename: file,
                 content: require(filepath), // JSON.parse(fs.readFileSync(, 'utf8'))
-            })
+            });
         });
         const sortedEmails = arFiles.sort((a, b) => b.content.date.localeCompare(a.content.date));
         res.send(sortedEmails);
-    })
-}
+    });
+};
 
 exports.delete = function (req, res) {
 
@@ -44,7 +44,7 @@ exports.delete = function (req, res) {
         res.status(404).send("could not find " + req.params.filename);
     }
 
-}
+};
 
 exports.deleteAll = function (req, res) {
 
@@ -61,6 +61,6 @@ exports.deleteAll = function (req, res) {
            
         });
         res.send();
-    })
+    });
 
-}
+};

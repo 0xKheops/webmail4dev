@@ -1,5 +1,5 @@
 const smtp = require("./smtp");
-const web = require("./web")
+const web = require("./web");
 
 exports.startServer = function (smtpPort, webPort, dataDir) {
 

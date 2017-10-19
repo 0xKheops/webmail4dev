@@ -1,4 +1,5 @@
-const meow = require('meow');
+#! /usr/bin/env node
+const meow = require("meow");
 const { startServer } = require("./server/server");
 
 const cli = meow(`
@@ -17,7 +18,7 @@ Examples
  
 `, {
     alias: {
-      s: 'smtp',
+      s: "smtp",
       w: "web",
       d: "d"
     }
@@ -29,8 +30,8 @@ if (cli.flags.h) {
   process.exit();
 }
 
-const smtpPort = cli.flags.s || 25
-const webPort = cli.flags.w || 2580
-const dataDir = cli.flags.d || "./data"
+const smtpPort = cli.flags.s || 25;
+const webPort = cli.flags.w || 2580;
+const dataDir = cli.flags.d || "./data";
 
 startServer(smtpPort, webPort, dataDir);
