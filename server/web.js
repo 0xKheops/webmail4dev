@@ -1,7 +1,7 @@
 const http = require("http");
 const express = require("express");
 const socket = require("socket.io");
-const path = require('path');
+const path = require("path");
 
 const mails = require("./mails");
 
@@ -40,7 +40,7 @@ exports.startWebServer = function (port, datadir) {
     // });
 
     // serve static content from ./client/build
-    const staticDir = path.join(__dirname, "../dist/web");
+    const staticDir = path.join(__dirname, "../dist");
     app.use(express.static(staticDir));
 
     // register rest end points

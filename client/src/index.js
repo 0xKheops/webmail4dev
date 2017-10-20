@@ -17,7 +17,7 @@ import {loadMails} from "./actions";
 const store = configureStore();
 
 store.dispatch(loadMails());
-store.dispatch({type:'server/hello', data:'Hello!'});
+//store.dispatch({type:'server/hello', data:'Hello!'});
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 

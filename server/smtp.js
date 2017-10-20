@@ -21,16 +21,16 @@ exports.startSmtpServer = function (port, datadir, onMailReceived) {
                     console.log("Received mail ERROR", err);
                 } else {
 
-                    console.log(`received an email from ${mail.from.text} : ${mail.subject}`);
+                    //console.log(`received an email from ${mail.from.text} : ${mail.subject}`);
 
                     try {
                         const filename = uuid.v4() + ".json";
                         const filepath = `${datadir}/` + filename;
                         fs.writeFileSync(filepath, JSON.stringify(mail));
-                        console.log("stored at : " + filepath);
+                        //console.log("stored at : " + filepath);
 
                         if (onMailReceived) {
-                            console.log("broadcasting onMailReceived...");
+                            //console.log("broadcasting onMailReceived...");
                             onMailReceived({
                                 filename: filename,
                                 content: mail
@@ -50,10 +50,10 @@ exports.startSmtpServer = function (port, datadir, onMailReceived) {
 
     server.on("error", err => {
         console.log("Error %s", err.message);
+        console.log("If running linux, you may need to use sudo as opening port 25 requires elevated privileges.", err.message);
     });
 
     server.listen(port);
     console.log(`SMTP listening on port ${port}...`);
-
 
 };
