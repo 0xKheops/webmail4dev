@@ -12,11 +12,11 @@ const transporter = nodemailer.createTransport({
 });
 
 const mailOptions = {
-    from: "\"Fred Foo 👻\" <foo@blurdybloop.com>", // sender address
-    to: "bar@blurdybloop.com, baz@blurdybloop.com", // list of receivers
-    subject: "Hello ✔", // Subject line
-    text: "Hello world?", // plain text body
-    html: "<b>Hello world?</b>" // html body
+    from: "\"webmail4dev\" <welcome@webmail.dev>", // sender address
+    to: "you@webmail.dev, you@webmail.dev", // list of receivers
+    subject: "Hello !", // Subject line
+    text: "Welcome to webmail4dev", // plain text body
+    html: "<b>Welcome to webmail4dev</b>" // html body
 };
 
 transporter.sendMail(mailOptions, (error, info) => {

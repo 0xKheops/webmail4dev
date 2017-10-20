@@ -22,10 +22,12 @@
   "scripts": {
     "start": "set PORT=1337 && react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "node postbuild.js",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "cpx": "^1.5.0",
     "redux-devtools": "^3.4.0"
   }
 }

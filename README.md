@@ -17,6 +17,8 @@ npm install -g webmail4dev
 webmail4dev
 ```
 
+If running linux, you might need to run `sudo webmail4dev` as opening port 25 requires elevated privileges.
+
 ### Options
 
 Run this command to see a list of all available options:
