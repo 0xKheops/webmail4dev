@@ -3,6 +3,7 @@ const express = require("express");
 const socket = require("socket.io");
 const path = require("path");
 const chalk = require("chalk");
+const favicon = require("express-favicon");
 
 const mails = require("./mails");
 
@@ -39,8 +40,9 @@ exports.startWebServer = function (port) {
 
     // serve static content from ./dist
     const staticDir = path.join(__dirname, "../dist");
+    app.use(favicon(path.join(staticDir, "favicon.ico"))); 
     app.use(express.static(staticDir));
-
+  
     // register rest end points
     app.get("/api/mails", mails.findAll);
     app.delete("/api/mails/:filename", mails.delete);

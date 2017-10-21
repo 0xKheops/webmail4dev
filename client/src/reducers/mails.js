@@ -1,4 +1,5 @@
 import * as types from '../actions/actionTypes';
+import { notifyEmailReceived } from "../utilities/notifications";
 
 const mails = (state = [], action) => {
 
@@ -11,7 +12,8 @@ const mails = (state = [], action) => {
       return state.filter(mail => mail.filename !== action.filename);
 
     case types.RECEIVED_MAIL:
-      return [ action.mail, ...state];
+      notifyEmailReceived(action.mail);
+      return [action.mail, ...state];
 
     case types.DELETE_MAILS_SUCCESS:
       return [];
