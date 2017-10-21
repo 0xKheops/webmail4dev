@@ -1,5 +1,6 @@
 #! /usr/bin/env node
 const meow = require("meow");
+const path = require("path");
 const { startServer } = require("./server/server");
 
 const cli = meow(`
@@ -32,6 +33,6 @@ if (cli.flags.h) {
 
 const smtpPort = cli.flags.s || 25;
 const webPort = cli.flags.w || 2580;
-const dataDir = cli.flags.d || "./data";
+const dataDir = cli.flags.d || path.join(__dirname + "data");
 
 startServer(smtpPort, webPort, dataDir);
