@@ -12,14 +12,20 @@ import App from './components/App';
 import { Provider } from 'react-redux'
 import { configureStore } from "./configureStore";
 import registerServiceWorker from './registerServiceWorker';
-import {loadMails} from "./actions";
+import { loadMails } from "./actions";
+import { registerNotifications } from "./utilities/notifications";
 
+// setup redux store
 const store = configureStore();
-
 store.dispatch(loadMails());
 //store.dispatch({type:'server/hello', data:'Hello!'});
 
+// request permission for notifications
+registerNotifications(store);
+
+// render
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 
+// unused for now but who knows :)
 registerServiceWorker();
 

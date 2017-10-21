@@ -31,7 +31,7 @@ exports.startSmtpServer = function (port, onMailReceived) {
                         const filename = uuid.v4() + ".json";
                         const filepath = path.join(dataDir, filename);
                         fs.writeFileSync(filepath, JSON.stringify(mail));
-                        console.log("stored at : " + filepath);
+                        //console.log("stored at : " + filepath);
 
                         if (onMailReceived) {
                             //console.log("broadcasting onMailReceived...");

@@ -14,7 +14,4 @@ $randomPeon3 = "Anakin Skywalker <anakin.skywalkder@office15r2.dev>"
 $randomPeon4 = "Leia Organa <leia.organa@office15r2.dev>"
 $randomPeon5 = "Yoda <yoda@office15r2.dev>"
  
-# Send-MailMessage -SmtpServer $smtp -To $to -From $from -Subject $subject -Body $body -BodyAsHtml -Priority high -UseSsl:$false
-# Start-Sleep -Seconds 5
 Send-MailMessage -SmtpServer $smtp -To @($to, $randomPeon1) -From $from -Subject ($subject + $subject + $subject) -Body $body -BodyAsHtml -Priority high -UseSsl:$false -Cc @($randomPeon2, $randomPeon3)   -Bcc @("test@test.co") -Attachments @("./README.md", "./start.js", "./screenshot.png")
-
