@@ -3,8 +3,10 @@ const fs = require("fs");
 const SMTPServer = require("smtp-server").SMTPServer;
 const simpleParser = require("mailparser").simpleParser;
 const uuid = require("uuid");
+const path = require("path");
+const chalk = require("chalk");
 
-exports.startSmtpServer = function (port, datadir, onMailReceived) {
+exports.startSmtpServer = function (port, onMailReceived) {
 
     const server = new SMTPServer({
 
@@ -22,12 +24,14 @@ exports.startSmtpServer = function (port, datadir, onMailReceived) {
                 } else {
 
                     //console.log(`received an email from ${mail.from.text} : ${mail.subject}`);
+                    const dataDir = process.env["DATA_DIRECTORY"];
 
                     try {
+                       
                         const filename = uuid.v4() + ".json";
-                        const filepath = `${datadir}/` + filename;
+                        const filepath = path.join(dataDir, filename);
                         fs.writeFileSync(filepath, JSON.stringify(mail));
-                        //console.log("stored at : " + filepath);
+                        console.log("stored at : " + filepath);
 
                         if (onMailReceived) {
                             //console.log("broadcasting onMailReceived...");
@@ -36,8 +40,9 @@ exports.startSmtpServer = function (port, datadir, onMailReceived) {
                                 content: mail
                             });
                         }
+                        
                     } catch (errSave) {
-                        console.log("error saving email in " + datadir);
+                        console.log(chalk.red("error saving email in " + dataDir), errSave);
                     }
 
                 }
@@ -49,8 +54,8 @@ exports.startSmtpServer = function (port, datadir, onMailReceived) {
     });
 
     server.on("error", err => {
-        console.log("Error %s", err.message);
-        console.log("If running linux, you may need to use sudo as opening port 25 requires elevated privileges.", err.message);
+        console.log(chalk.red("Error %s", err.message));
+        console.log(chalk.red("If running linux, you may need to use sudo as opening port 25 requires elevated privileges."), err.message);
     });
 
     server.listen(port);

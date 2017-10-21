@@ -3,13 +3,7 @@ const path = require("path");
 
 exports.findAll = function (req, res) {
 
-    // TODO : use env variable
-    const dataDir = "./data";
-
-    // ensure the data directory exists
-    if (!fs.existsSync(dataDir)) {
-        fs.mkdirSync(dataDir);
-    }
+    const dataDir = process.env["DATA_DIRECTORY"];
 
     fs.readdir(dataDir, (err, files) => {
         const arFiles = [];
@@ -28,9 +22,8 @@ exports.findAll = function (req, res) {
 
 exports.delete = function (req, res) {
 
-    // TODO : use env variable
-    const dataDir = "./data";
-
+    const dataDir = process.env["DATA_DIRECTORY"];
+    
     const filename = req.params.filename;
     const filepath = path.resolve(dataDir + "/" + filename);
 
@@ -45,9 +38,8 @@ exports.delete = function (req, res) {
 
 exports.deleteAll = function (req, res) {
 
-    // TODO : use env variable
-    const dataDir = "./data";
-  
+    const dataDir = process.env["DATA_DIRECTORY"];
+    
     fs.readdir(dataDir, (err, files) => {
         files.forEach(file => {
            

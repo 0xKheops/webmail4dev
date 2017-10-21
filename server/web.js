@@ -5,9 +5,7 @@ const path = require("path");
 
 const mails = require("./mails");
 
-exports.startWebServer = function (port, datadir) {
-
-    // TODO : passer le paramètre datadir à mails
+exports.startWebServer = function (port) {
 
     const app = express();
     const server = http.createServer(app);
@@ -21,7 +19,6 @@ exports.startWebServer = function (port, datadir) {
 
     // io.on("connection", function (socket) {
     //     console.log("connection");
-
     //     socket.on("event", function (data) {
     //         console.log("io received event", data);
     //     }),
@@ -39,7 +36,7 @@ exports.startWebServer = function (port, datadir) {
     //     //res.status(500).send("Something broke!");
     // });
 
-    // serve static content from ./client/build
+    // serve static content from ./dist
     const staticDir = path.join(__dirname, "../dist");
     app.use(express.static(staticDir));
 
@@ -52,7 +49,6 @@ exports.startWebServer = function (port, datadir) {
     server.listen(port);
 
     console.log(`express listening on port ${port}`);
-
 
     return onMailReceived;
 

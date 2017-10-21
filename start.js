@@ -20,7 +20,7 @@ Examples
     alias: {
       s: "smtp",
       w: "web",
-      d: "d"
+      d: "data"
     }
   });
 
