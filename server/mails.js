@@ -18,6 +18,7 @@ exports.findAll = function (req, res) {
         const sortedEmails = arFiles.sort((a, b) => b.content.date.localeCompare(a.content.date));
         res.send(sortedEmails);
     });
+    
 };
 
 exports.delete = function (req, res) {
