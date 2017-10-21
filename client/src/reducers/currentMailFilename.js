@@ -6,6 +6,9 @@ const currentMailFilename = (state = null, action) => {
             return action.mails.length === 0 ? null : action.mails[0].filename;
         case types.DISPLAY_MAIL:
             return action.filename;
+        case types.DELETE_MAIL_SUCCESS:
+        case types.DELETE_MAILS_SUCCESS:
+            return null;
         default:
             return state
     }
