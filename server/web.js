@@ -2,6 +2,7 @@ const http = require("http");
 const express = require("express");
 const socket = require("socket.io");
 const path = require("path");
+const chalk = require("chalk");
 
 const mails = require("./mails");
 
@@ -32,8 +33,8 @@ exports.startWebServer = function (port) {
     // })
 
     // app.use(function (err, req, res, next) {
-    //     console.error(err.stack);
-    //     //res.status(500).send("Something broke!");
+    //     console.error("ERROR" , err.stack);
+    //     res.status(500).send("Something broke!");
     // });
 
     // serve static content from ./dist
@@ -44,6 +45,24 @@ exports.startWebServer = function (port) {
     app.get("/api/mails", mails.findAll);
     app.delete("/api/mails/:filename", mails.delete);
     app.delete("/api/mails", mails.deleteAll);
+
+    server.on("error", err => {
+
+        console.log(chalk.red(`WEB/EXPRESS ERROR : ${err.message}`));
+
+        switch (err.code) {
+            case "EADDRINUSE":
+                console.log(chalk.red(`port ${port} is already in use.`));
+                process.exit();
+                break;
+            case "EACCESS":
+                console.log(chalk.red(`Access denied on port ${port}. On some operating systems, such as linux, listening on ports below 1000 requires elevated privileges. You may need to run 'sudo webmail4dev' if using linux.`));
+                process.exit();
+                break;
+            default:
+                console.log(err);
+        }
+    });
 
     // booya
     server.listen(port);

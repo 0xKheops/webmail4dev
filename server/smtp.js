@@ -27,7 +27,7 @@ exports.startSmtpServer = function (port, onMailReceived) {
                     const dataDir = process.env["DATA_DIRECTORY"];
 
                     try {
-                       
+
                         const filename = uuid.v4() + ".json";
                         const filepath = path.join(dataDir, filename);
                         fs.writeFileSync(filepath, JSON.stringify(mail));
@@ -40,7 +40,7 @@ exports.startSmtpServer = function (port, onMailReceived) {
                                 content: mail
                             });
                         }
-                        
+
                     } catch (errSave) {
                         console.log(chalk.red("error saving email in " + dataDir), errSave);
                     }
@@ -54,8 +54,21 @@ exports.startSmtpServer = function (port, onMailReceived) {
     });
 
     server.on("error", err => {
-        console.log(chalk.red("Error %s", err.message));
-        console.log(chalk.red("If running linux, you may need to use sudo as opening port 25 requires elevated privileges."), err.message);
+
+        console.log(chalk.red(`SMTP ERROR : ${err.message}`));
+
+        switch (err.code) {
+            case "EADDRINUSE":
+                console.log(chalk.red(`port ${port} is already in use.`));
+                process.exit();
+                break;
+            case "EACCESS":
+                console.log(chalk.red(`Access denied on port ${port}. On some operating systems, such as linux, listening on ports below 1000 requires elevated privileges. You may need to run 'sudo webmail4dev' if using linux.`));
+                process.exit();
+                break;
+            default:
+                console.log(err);
+        }
     });
 
     server.listen(port);
