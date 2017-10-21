@@ -33,6 +33,6 @@ if (cli.flags.h) {
 
 const smtpPort = cli.flags.s || 25;
 const webPort = cli.flags.w || 2580;
-const dataDir = cli.flags.d || path.join(__dirname + "./data");
+const dataDir = cli.flags.d || path.join(__dirname + "data");
 
 startServer(smtpPort, webPort, dataDir);

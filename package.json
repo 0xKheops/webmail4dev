@@ -1,6 +1,6 @@
 {
   "name": "webmail4dev",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "webmail4dev starts a local smtp server and a web server that displays all emails received by the smtp server.",
   "main": "start.js",
   "scripts": {
