@@ -55,7 +55,7 @@ exports.startWebServer = function (port) {
                 console.log(chalk.red(`port ${port} is already in use.`));
                 process.exit();
                 break;
-            case "EACCESS":
+            case "EACCES":
                 console.log(chalk.red(`Access denied on port ${port}. On some operating systems, such as linux, listening on ports below 1000 requires elevated privileges. You may need to run 'sudo webmail4dev' if using linux.`));
                 process.exit();
                 break;
