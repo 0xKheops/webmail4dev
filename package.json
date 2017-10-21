@@ -17,6 +17,7 @@
     "chalk": "^2.2.0",
     "concurrently": "^3.5.0",
     "express": "^4.16.2",
+    "express-favicon": "^2.0.0",
     "mailparser": "^2.1.0",
     "meow": "^3.7.0",
     "smtp-server": "^3.3.0",
