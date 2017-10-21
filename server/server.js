@@ -13,6 +13,7 @@ exports.startServer = function (smtpPort, webPort, dataDir) {
     
     // store as environment variable to make it easy for REST api and SMTP to consume it
     process.env["DATA_DIRECTORY"] = resolvedDataDir;
+    console.log("data directory : " + dataDir);
 
     // console.log("starting web server " + webPort);
     const onMailReceived = web.startWebServer(webPort);

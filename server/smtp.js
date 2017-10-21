@@ -25,7 +25,7 @@ exports.startSmtpServer = function (port, onMailReceived) {
 
                     //console.log(`received an email from ${mail.from.text} : ${mail.subject}`);
                     const dataDir = process.env["DATA_DIRECTORY"];
-                    console.log("data directory : " + dataDir);
+                    
 
                     try {
 
