@@ -73,6 +73,7 @@ exports.startSmtpServer = function (port, onMailReceived) {
     });
 
     server.listen(port);
+    //console.log(chalk.cyan(`SMTP listening on port ${port}...`));
     console.log(`SMTP listening on port ${port}...`);
 
 };

@@ -2,6 +2,7 @@ const path = require("path");
 const smtp = require("./smtp");
 const web = require("./web");
 const fs = require("fs");
+const chalk = require("chalk");
 
 exports.startServer = function (smtpPort, webPort, dataDir) {
 
@@ -13,6 +14,7 @@ exports.startServer = function (smtpPort, webPort, dataDir) {
     
     // store as environment variable to make it easy for REST api and SMTP to consume it
     process.env["DATA_DIRECTORY"] = resolvedDataDir;
+    //console.log(chalk.gray("data directory : " + dataDir));
     console.log("data directory : " + dataDir);
 
     // console.log("starting web server " + webPort);

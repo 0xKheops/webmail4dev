@@ -4,3 +4,5 @@
 /npm-debug.log
 /client/node_modules
 /*.tgz
+/*.log
+/playground
