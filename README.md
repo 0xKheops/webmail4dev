@@ -24,8 +24,9 @@ sudo npm install -g webmail4dev
 # sudo is necessary to open port 25
 sudo webmail4dev
 
-# or if you want to run it as a service
+# or if you want to run it as a service, then start it
 sudo webmail4dev --install
+sudo service webmail4dev start
 ```
 
 ### For Windows
@@ -46,6 +47,7 @@ webmail4dev
 # or if you want to run it as a service
 # requires "Run as administrator" prompt
 webmail4dev --install
+net start webmail4dev
 ```
 
 ### Options
