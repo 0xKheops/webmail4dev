@@ -5,5 +5,4 @@
 /client/node_modules
 /*.tgz
 /*.log
-/playground
 /.vscode
