@@ -69,6 +69,9 @@ exports.startWebServer = function (port) {
     // booya
     server.listen(port);
 
+    //console.log(chalk.blue(`express serving static files from ${staticDir}`));
+    //console.log(chalk.blue(`express listening on port ${port}`));
+    console.log(`express serving static files from ${staticDir}`);
     console.log(`express listening on port ${port}`);
 
     return onMailReceived;

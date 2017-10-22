@@ -1,7 +1,7 @@
 {
   "name": "webmail4dev",
-  "version": "0.0.18",
-  "description": "webmail4dev starts a local smtp server and a web server that displays all emails received by the smtp server.",
+  "version": "0.1.0",
+  "description": "webmail4dev is a CLI/service which starts a local smtp server and a web server that displays all emails received by the smtp server.",
   "main": "start.js",
   "scripts": {
     "build": "cd client && npm run build",
@@ -20,6 +20,7 @@
     "express-favicon": "^2.0.0",
     "mailparser": "^2.1.0",
     "meow": "^3.7.0",
+    "os-service": "^1.4.2",
     "smtp-server": "^3.3.0",
     "socket.io": "^2.0.3",
     "uuid": "^3.1.0"
