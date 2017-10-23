@@ -49,3 +49,16 @@ export function deleteMail(filename) {
 
     };
 }
+
+export const getAttachment = (mailFilename, attachmentFilename) => {
+
+    // download directly, there is no reducer for this action
+    mailsApi.getAttachment(mailFilename, attachmentFilename);
+
+    // trace an action for the hell of it :)
+    return {
+        type: types.GET_ATTACHMENT,
+        mailFilename,
+        attachmentFilename
+    }
+};

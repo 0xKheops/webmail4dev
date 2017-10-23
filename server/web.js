@@ -26,6 +26,7 @@ exports.startWebServer = function (port) {
   
     // register rest end points
     app.get("/api/mails", mails.findAll);
+    app.get("/api/mails/:mailFilename/:attachmentFilename", mails.getAttachment);
     app.delete("/api/mails/:filename", mails.delete);
     app.delete("/api/mails", mails.deleteAll);
 

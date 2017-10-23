@@ -9,7 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { Toolbar, ToolbarGroup } from 'material-ui/Toolbar';
 import SelectableList from "../components/SelectableList";
 
- // import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 
 class MailList extends React.Component {
     constructor(props, context) {
@@ -39,7 +39,9 @@ class MailList extends React.Component {
                     <Subheader>Inbox</Subheader>
                     {this.props.mails.map(m => <ListItem key={m.filename}
                         value={m.filename}
-                        primaryText={m.content.from.text}
+                        primaryText={m.content.from.value.length === 1 ?
+                            m.content.from.value[0].name || m.content.from.value[0].address :
+                            m.content.from.text}
                         secondaryText={m.content.subject}
                         onClick={() => this.onMailClick(m.filename)} />)}
                 </SelectableList>
