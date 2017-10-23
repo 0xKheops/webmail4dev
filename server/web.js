@@ -19,25 +19,6 @@ exports.startWebServer = function (port) {
         io.emit("action", { type: "RECEIVED_MAIL", mail });
     };
 
-    // io.on("connection", function (socket) {
-    //     console.log("connection");
-    //     socket.on("event", function (data) {
-    //         console.log("io received event", data);
-    //     }),
-    //     socket.on("disconnect", function () {
-    //         console.log("io disconnect");
-    //     }),
-    //     socket.on("action", function (action) {
-    //         console.log("io action", action);
-    //         socket.emit("action", {type:"TEST", data:"haha"});
-    //     })
-    // })
-
-    // app.use(function (err, req, res, next) {
-    //     console.error("ERROR" , err.stack);
-    //     res.status(500).send("Something broke!");
-    // });
-
     // serve static content from ./dist
     const staticDir = path.join(__dirname, "../dist");
     app.use(favicon(path.join(staticDir, "favicon.ico"))); 
@@ -69,10 +50,8 @@ exports.startWebServer = function (port) {
     // booya
     server.listen(port);
 
-    //console.log(chalk.blue(`express serving static files from ${staticDir}`));
-    //console.log(chalk.blue(`express listening on port ${port}`));
-    console.log(`express serving static files from ${staticDir}`);
-    console.log(`express listening on port ${port}`);
+    console.log(chalk.blue(`express serving static files from ${staticDir}`));
+    console.log(chalk.blue(`express listening on port ${port}`));
 
     return onMailReceived;
 

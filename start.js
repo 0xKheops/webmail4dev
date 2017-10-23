@@ -8,6 +8,7 @@ process.chdir(__dirname);
 const meow = require("meow");
 const path = require("path");
 const fs = require("fs");
+const chalk = require("chalk");
 const service = require("os-service");
 const { startServer } = require("./server/server");
 
@@ -75,7 +76,9 @@ if (cli.flags.install) {
       console.log("smtp port : " + smtpPort);
       console.log("log file : " + logFilePath);
       console.log("data directory : " + dataDir);
-      console.log("If using windows, you need to start the service manually, or reboot, to complete the install. You may run : net start webmail4dev");
+      console.log(chalk.yellow(`Service is installed but not started yet. 
+      for Windows : net start webmail4dev
+      for Linux : service webmail4dev start`));
     }
   });
 
@@ -93,12 +96,12 @@ if (cli.flags.install) {
 
   if (cli.flags.run) {
 
-    console.log("starting service");
+    console.log("starting service...");
     console.log();
 
     // run the serving by providing current stdout/stderr so it overwrites them with current values
     service.run(process.stdout, process.stdout, function () {
-      console.log("stopping");
+      console.log("stopping service...");
       service.stop(0);
     });
 

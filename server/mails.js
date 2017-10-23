@@ -3,8 +3,6 @@ const path = require("path");
 
 exports.findAll = function (req, res) {
 
-    console.log("findAll");
-
     const dataDir = process.env["DATA_DIRECTORY"];
 
     fs.readdir(dataDir, (err, files) => {

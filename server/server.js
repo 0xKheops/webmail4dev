@@ -11,20 +11,22 @@ exports.startServer = function (smtpPort, webPort, dataDir) {
     if (!fs.existsSync(resolvedDataDir)) {
         fs.mkdirSync(resolvedDataDir);
     }
-    
+
     // store as environment variable to make it easy for REST api and SMTP to consume it
     process.env["DATA_DIRECTORY"] = resolvedDataDir;
-    //console.log(chalk.gray("data directory : " + dataDir));
-    console.log("data directory : " + dataDir);
+    console.log(chalk.gray("data directory : " + dataDir));
 
-    // console.log("starting web server " + webPort);
+    // start the web server (static files + REST api)
     const onMailReceived = web.startWebServer(webPort);
 
-    // console.log("starting smtp server " + smtpPort);
+    // start the smtp server
     smtp.startSmtpServer(smtpPort, onMailReceived);
 
-    console.log(`
+    // set a timeout because if smtp or web server fail, it will be asynchronously
+    setTimeout(() => {
+        console.log(chalk.green(`
 Browse emails on http://localhost:${webPort}
-`);
+`));
+    }, 200);
 
 };
