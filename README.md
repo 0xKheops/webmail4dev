@@ -31,7 +31,7 @@ sudo service webmail4dev start
 
 ### For Windows
 
-[os-service](https://github.com/stephenwvickers/node-os-service) dependency compiles C++ code during install using [node-gyp](https://www.npmjs.com/package/node-gyp), which requires python to be installed and it's path to be registered in the node environment. The easiest way to meet these requirements is to install windows-build-tools.
+[os-service](https://github.com/stephenwvickers/node-os-service) dependency compiles C++ code during install using [node-gyp](https://www.npmjs.com/package/node-gyp), which requires python to be installed and it's path to be registered in the node environment. The easiest way to meet these requirements on windows is to install windows-build-tools.
 
 ```bash
 # FOR WINDOWS ONLY

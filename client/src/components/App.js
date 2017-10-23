@@ -34,4 +34,5 @@ class App extends Component {
   }
 }
 
+// Use default export for the connected component so we can test it
 export default App;
