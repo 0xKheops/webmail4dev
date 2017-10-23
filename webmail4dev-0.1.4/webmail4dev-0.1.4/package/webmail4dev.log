@@ -1,0 +1,10 @@
+data directory : D:\Repositories\webmail4dev\data
+express serving static files from D:\Repositories\webmail4dev\dist
+express listening on port 2580
+express serving static files from D:\Repositories\webmail4dev\dist
+express listening on port 2580
+SMTP listening on port 25...
+
+Browse emails on http://localhost:2580
+
+stopping
