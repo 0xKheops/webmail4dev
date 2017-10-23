@@ -10,9 +10,9 @@ It can be seen as a web alternative to [Papercut](https://github.com/Changemaker
 
 ## Installation
 
-### For Linux
-
 Requires [nodejs](https://nodejs.org/en/download/) 6.X minimum.
+
+### For Linux
 
 Install and run the application :
 
