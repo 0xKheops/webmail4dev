@@ -14,28 +14,21 @@ exports.startSmtpServer = function (port, onMailReceived) {
 
         onData(stream, session, callback) {
 
-            // stream.pipe(process.stdout); // print message to console
-            //stream.on('end', callback)
-
             simpleParser(stream, (err, mail) => {
 
                 if (err) {
                     console.log("Received mail ERROR", err);
                 } else {
 
-                    //console.log(`received an email from ${mail.from.text} : ${mail.subject}`);
                     const dataDir = process.env["DATA_DIRECTORY"];
-                    
 
                     try {
 
                         const filename = uuid.v4() + ".json";
                         const filepath = path.join(dataDir, filename);
                         fs.writeFileSync(filepath, JSON.stringify(mail));
-                        //console.log("stored at : " + filepath);
 
                         if (onMailReceived) {
-                            //console.log("broadcasting onMailReceived...");
                             onMailReceived({
                                 filename: filename,
                                 content: mail
@@ -73,7 +66,7 @@ exports.startSmtpServer = function (port, onMailReceived) {
     });
 
     server.listen(port);
-    //console.log(chalk.cyan(`SMTP listening on port ${port}...`));
-    console.log(`SMTP listening on port ${port}...`);
+
+    console.log(chalk.cyan(`SMTP listening on port ${port}...`));
 
 };

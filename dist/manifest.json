@@ -10,7 +10,7 @@
   ],
   "start_url": "./index.html",
   "display": "standalone",
-  "theme_color": "#000000",
+  "theme_color": "#00BCD4",
   "background_color": "#ffffff",
   "permissions": {
     "desktop-notification": {}

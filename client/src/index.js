@@ -18,7 +18,6 @@ import { registerNotifications } from "./utilities/notifications";
 // setup redux store
 const store = configureStore();
 store.dispatch(loadMails());
-//store.dispatch({type:'server/hello', data:'Hello!'});
 
 // request permission for notifications
 registerNotifications(store);
