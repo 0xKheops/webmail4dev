@@ -12,10 +12,16 @@ import RecipientsRow from "../components/RecipientsRow";
 import AttachmentChip from "../components/AttachmentChip";
 
 class MailDetails extends React.Component {
-    
+
     onDeleteClick() {
 
         this.props.actions.deleteMail(this.props.filename);
+
+    }
+
+    onAttachmentClick(attachment) {
+
+        this.props.actions.getAttachment(this.props.filename, attachment.filename);
 
     }
 
@@ -48,7 +54,7 @@ class MailDetails extends React.Component {
                     <div>{mail.content.subject}</div>
                 </div>
                 <div className="MailDetails-HeaderRow">
-                    <div className="MailDetails-Attachments">{mail.content.attachments.map((att, idx) => <AttachmentChip key={idx} attachment={att} />)}</div>
+                    <div className="MailDetails-Attachments">{mail.content.attachments.map((att, idx) => <AttachmentChip key={idx} attachment={att} onClick={() => this.onAttachmentClick(att)} />)}</div>
                 </div>
             </div>
             <Divider />
