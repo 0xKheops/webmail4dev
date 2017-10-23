@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "cpx": "^1.5.0",
-    "redux-devtools": "^3.4.0"
+    "redux-devtools": "^3.4.0",
+    "rimraf": "^2.6.2"
   }
 }
