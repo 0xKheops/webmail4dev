@@ -1,0 +1,24 @@
+# Use node 4.4.5 LTS
+FROM node:8.8.0
+
+RUN mkdir -p /app
+RUN mkdir -p /app/dist
+RUN mkdir -p /app/server
+RUN mkdir -p /app/data
+
+COPY package.json /app
+COPY package-lock.json /app
+COPY dist /app/dist
+COPY server /app/server
+COPY data /app/data
+
+WORKDIR /app
+
+# Install dependencies
+RUN NODE_ENV=production npm install --loglevel warn
+
+# Expose API port to the outside
+EXPOSE 2580 25
+
+# Launch application
+CMD ["npm","start"]
