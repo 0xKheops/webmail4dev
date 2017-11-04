@@ -11,6 +11,7 @@ exports.startSmtpServer = function (port, onMailReceived) {
     const server = new SMTPServer({
 
         authOptional: true,
+        maxAllowedUnauthenticatedCommands: 1000000,
 
         onData(stream, session, callback) {
 

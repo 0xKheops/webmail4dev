@@ -67,6 +67,8 @@
 
 .MailDetails-Content{
   flex-grow: 1;
+  overflow: auto;
+  position:relative;
 }
 
 .MailDetails-HeaderRow{
@@ -74,6 +76,8 @@
 }
 .MailDetails-HeaderRow label{
   width:100px;
+  min-width:100px;
+  white-space: nowrap;
 }
 
 .MailDetails-Attachments{
@@ -95,6 +99,7 @@
 .MailList-Content{
   overflow-y:scroll;
   flex-grow: 1;
+  position:relative;
 }
 
 .MailList-List{
@@ -104,4 +109,12 @@
   position:sticky;
   bottom:0;
   left:0;
+}
+
+.mail-iframe{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
