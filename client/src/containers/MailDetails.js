@@ -25,6 +25,17 @@ class MailDetails extends React.Component {
 
     }
 
+    componentDidUpdate() {
+        try {
+            const iframe = this.refs.iframe;
+            const document = iframe.contentDocument;
+            // const head = document.getElementsByTagName('head')[0];
+            document.body.innerHTML = this.props.mail.content.html;
+        } catch(e){
+            // fails when no mail is selected
+        }
+    }
+
     render() {
 
         const { mail } = this.props;
@@ -54,12 +65,13 @@ class MailDetails extends React.Component {
                     <div>{mail.content.subject}</div>
                 </div>
                 <div className="MailDetails-HeaderRow">
-                    <div className="MailDetails-Attachments">{mail.content.attachments.map((att, idx) => <AttachmentChip key={idx} attachment={att} onClick={() => this.onAttachmentClick(att)} />)}</div>
+                    <div className="MailDetails-Attachments">{mail.content.attachments.filter(att => !att.related).map((att, idx) => <AttachmentChip key={idx} attachment={att} onClick={() => this.onAttachmentClick(att)} />)}</div>
                 </div>
             </div>
             <Divider />
             <div className="MailDetails-Content">
-                <div dangerouslySetInnerHTML={{ __html: mail.content.html }}></div>
+                <iframe className="mail-iframe" frameBorder="0" ref="iframe" title={mail.content.subject} >
+                </iframe>
             </div>
         </div>;
     }

@@ -16,7 +16,14 @@ const mailOptions = {
     to: "you@webmail.dev, you@webmail.dev", // list of receivers
     subject: "Hello !", // Subject line
     text: "Welcome to webmail4dev", // plain text body
-    html: "<b>Welcome to webmail4dev</b>" // html body
+    html: "<b>Welcome to webmail4dev</b><img src=\"cid:screenshot\" />", // html body
+    attachments: [
+        {
+            filename: "screenshot.png",
+            cid: "screenshot",
+            path: "./screenshot.png"
+        }
+    ]
 };
 
 transporter.sendMail(mailOptions, (error, info) => {
