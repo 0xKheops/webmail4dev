@@ -67,6 +67,7 @@
 
 .MailDetails-Content{
   flex-grow: 1;
+  overflow: auto;
 }
 
 .MailDetails-HeaderRow{
