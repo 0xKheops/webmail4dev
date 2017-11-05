@@ -44,12 +44,16 @@ exports.encodeMailContentInHtml = (mail) => {
 
         //find the attachment that matches the cid
         const attachment = mail.attachments.find(att => att.cid === contentId);
+
+        // replace the cid by the the attachment itself as base64
         if (attachment != null) {
+
             //encode attachment in base 64
             const base64 = base64EncArr(attachment.content);
 
             //replace by 
             return match.replace(cid, "data:" + attachment.contentType + ";base64," + base64);
+
         }
 
         return match;
