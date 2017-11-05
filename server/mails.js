@@ -1,3 +1,4 @@
+
 const findAll = function (req, res) {
 
     this.database.mails.find({}).sort({ date: -1 }).exec((err, mails) => {
@@ -9,8 +10,8 @@ const findAll = function (req, res) {
 
             // TODO : remove all but necessary properties (id, from, subject)
             // for now, just remove attachments content
-            for(const mail of mails){
-                for(const attachment of mail.attachments){
+            for (const mail of mails) {
+                for (const attachment of mail.attachments) {
                     delete attachment.content;
                 }
             }
@@ -46,7 +47,7 @@ const getAttachment = function (req, res) {
                         "Content-disposition": "attachment;filename=" + attachment.filename,
                         "Content-Length": attachment.size
                     });
-                    
+
                     res.end(new Buffer(attachment.content, "binary"));
                 } catch (err2) {
                     // may happen if data isn't good

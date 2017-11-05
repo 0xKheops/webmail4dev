@@ -46,7 +46,7 @@ const mailOptions3 = {
     }]
 };
 
-transporter.sendMail(mailOptions1, (error, info) => {
+transporter.sendMail(mailOptions2, (error, info) => {
     if (error) {
         return console.log(error);
     }

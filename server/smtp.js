@@ -2,6 +2,7 @@
 const SMTPServer = require("smtp-server").SMTPServer;
 const simpleParser = require("mailparser").simpleParser;
 const chalk = require("chalk");
+const { encodeMailContentInHtml } = require("./utils");
 
 exports.startSmtpServer = function (port, database, onMailReceived) {
 
@@ -31,13 +32,15 @@ exports.startSmtpServer = function (port, database, onMailReceived) {
                         callback(err);
                     } else {
 
+                        encodeMailContentInHtml(mail);
+                        
                         // attachments are buffers, turn them into array before storing into database
                         for (const attachment of mail.attachments) {
                             attachment.content = Array.prototype.slice.call(attachment.content, 0);
                         }
 
                         console.log(chalk.green(mail.from.text) + " on " + mail.date + " : " + mail.subject);
-                        
+
                         // add raw content so it can be viewed in the app
                         mail.raw = raw;
 
