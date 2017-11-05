@@ -11,10 +11,18 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-const mailOptions = {
+const mailOptions1 = {
     from: "\"webmail4dev\" <welcome@webmail.dev>", // sender address
-    to: "you@webmail.dev, you@webmail.dev", // list of receivers
+    to: "you@webmail.dev", // list of receivers
     subject: "Hello !", // Subject line
+    text: "Welcome to webmail4dev", // plain text body
+    html: "<b>Welcome to webmail4dev</b>" // html body
+};
+
+const mailOptions2 = {
+    from: "\"webmail4dev\" <welcome@webmail.dev>", // sender address
+    to: "you@webmail.dev", // list of receivers
+    subject: "Hello embedded image !", // Subject line
     text: "Welcome to webmail4dev", // plain text body
     html: "<b>Welcome to webmail4dev</b><img src=\"cid:screenshot\" />", // html body
     attachments: [
@@ -26,7 +34,19 @@ const mailOptions = {
     ]
 };
 
-transporter.sendMail(mailOptions, (error, info) => {
+const mailOptions3 = {
+    from: "\"webmail4dev\" <welcome@webmail.dev>", // sender address
+    to: "you@webmail.dev", // list of receivers
+    subject: "Hello attachment!", // Subject line
+    text: "Welcome to webmail4dev", // plain text body
+    html: "<b>Welcome to webmail4dev</b>", // html body
+    attachments: [{
+        filename: "TODO.md",
+        path: "./TODO.md"
+    }]
+};
+
+transporter.sendMail(mailOptions1, (error, info) => {
     if (error) {
         return console.log(error);
     }

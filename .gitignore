@@ -1,6 +1,6 @@
 /node_modules
 /data/*.json
-!/data/welcome.json
+/data/*.db
 /npm-debug.log
 /client/node_modules
 /*.tgz

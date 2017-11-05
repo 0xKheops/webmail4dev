@@ -1,56 +1,61 @@
-const fs = require("fs");
-const path = require("path");
+const findAll = function (req, res) {
 
-exports.findAll = function (req, res) {
+    this.database.mails.find({}).sort({ date: -1 }).exec((err, mails) => {
 
-    const dataDir = process.env["DATA_DIRECTORY"];
+        if (err) {
+            console.error(err);
+            res.status(500).send("error : " + err);
+        } else {
 
-    fs.readdir(dataDir, (err, files) => {
-        const arFiles = [];
-        files.forEach(file => {
-
-            const filepath = path.resolve(dataDir + "/" + file);
-            const mail = JSON.parse(fs.readFileSync(filepath));
-
-            if (mail.attachments) {
-                // remove the data on each attachment, as it will be downloaded on demand
-                for (const attachment of mail.attachments) {
+            // TODO : remove all but necessary properties (id, from, subject)
+            // for now, just remove attachments content
+            for(const mail of mails){
+                for(const attachment of mail.attachments){
                     delete attachment.content;
                 }
             }
 
-            arFiles.push({
-                filename: file,
-                content: mail,
-            });
+            res.send(mails);
+        }
 
-
-        });
-        const sortedEmails = arFiles.sort((a, b) => b.content.date.localeCompare(a.content.date));
-        res.send(sortedEmails);
     });
 
 };
 
-exports.getAttachment = function (req, res) {
+const getAttachment = function (req, res) {
 
     try {
 
-        const dataDir = process.env["DATA_DIRECTORY"];
+        const mailId = req.params.id;
+        const filename = req.params.filename;
 
-        const mailFilename = req.params.mailFilename;
-        const filepath = path.resolve(dataDir + "/" + mailFilename);
-        const mail = require(filepath);
+        console.log("getAttachment", mailId, filename);
 
-        const attachmentFilename = req.params.attachmentFilename;
-        const attachment = mail.attachments.find(att => att.filename === attachmentFilename);
+        this.database.mails.findOne({ _id: mailId }, (err, mail) => {
 
-        res.writeHead(200, {
-            "Content-Type": attachment.contentType,
-            "Content-disposition": "attachment;filename=" + attachment.filename,
-            "Content-Length": attachment.size
+            if (err) {
+                console.error(err);
+                res.status(404).send("could not find email " + mailId, err);
+            } else {
+
+                try {
+                    const attachment = mail.attachments.find(att => att.filename === filename);
+
+                    res.writeHead(200, {
+                        "Content-Type": attachment.contentType,
+                        "Content-disposition": "attachment;filename=" + attachment.filename,
+                        "Content-Length": attachment.size
+                    });
+                    
+                    res.end(new Buffer(attachment.content, "binary"));
+                } catch (err2) {
+                    // may happen if data isn't good
+                    console.error(err2);
+                    res.status(404).send("could not find attachment");
+                }
+            }
+
         });
-        res.end(new Buffer(attachment.content.data, "binary"));
 
     } catch (err) {
         console.error(err);
@@ -59,34 +64,47 @@ exports.getAttachment = function (req, res) {
 
 };
 
-exports.delete = function (req, res) {
+const deleteOne = function (req, res) {
 
-    const dataDir = process.env["DATA_DIRECTORY"];
+    const id = req.params.id;
 
-    const filename = req.params.filename;
-    const filepath = path.resolve(dataDir + "/" + filename);
-
-    if (fs.existsSync(filepath)) {
-        fs.unlinkSync(filepath);
-        res.send(req.params.filename + " deleted");
-    } else {
-        res.status(404).send("could not find " + req.params.filename);
-    }
+    this.database.mails.remove({ _id: id }, {}, function (err) {
+        if (err) {
+            console.error(err);
+            res.status(404).send("could not find email " + id, err);
+        } else {
+            res.send(id + " deleted");
+        }
+    });
 
 };
 
-exports.deleteAll = function (req, res) {
+const deleteAll = function (req, res) {
 
-    const dataDir = process.env["DATA_DIRECTORY"];
-
-    fs.readdir(dataDir, (err, files) => {
-        files.forEach(file => {
-
-            const filepath = path.resolve(dataDir + "/" + file);
-            fs.unlinkSync(filepath);
-
-        });
-        res.send();
+    this.database.mails.remove({}, { multi: true }, function (err) {
+        if (err) {
+            console.error(err);
+            res.status(500).send("failed to delete all emails", err);
+        } else {
+            res.send("all emails deleted");
+        }
     });
+
+
+};
+
+exports.getMailApi = function (database) {
+
+    const api = {
+        database
+    };
+
+    return {
+        database,
+        findAll: findAll.bind(api),
+        getAttachment: getAttachment.bind(api),
+        deleteOne: deleteOne.bind(api),
+        deleteAll: deleteAll.bind(api),
+    };
 
 };

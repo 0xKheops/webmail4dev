@@ -1,49 +1,69 @@
 // const express = require('express');
-const fs = require("fs");
 const SMTPServer = require("smtp-server").SMTPServer;
 const simpleParser = require("mailparser").simpleParser;
-const uuid = require("uuid");
-const path = require("path");
 const chalk = require("chalk");
 
-exports.startSmtpServer = function (port, onMailReceived) {
+exports.startSmtpServer = function (port, database, onMailReceived) {
 
     const server = new SMTPServer({
 
         authOptional: true,
         maxAllowedUnauthenticatedCommands: 1000000,
 
+        //called when a mail is received
         onData(stream, session, callback) {
 
-            simpleParser(stream, (err, mail) => {
+            //save raw input
+            const rawParser = new Promise((resolve, reject) => {
+                let raw = "";
+                stream.on("data", (buffer) => raw += buffer.toString());
+                stream.on("end", () => resolve(raw));
+                stream.on("error", () => reject("failed to parse incoming mail (raw)"));
+            });
 
-                if (err) {
-                    console.log("Received mail ERROR", err);
-                } else {
+            rawParser.then((raw) => {
 
-                    const dataDir = process.env["DATA_DIRECTORY"];
+                // pass raw string because the stream has already been read
+                simpleParser(raw, (err, mail) => {
 
-                    try {
+                    if (err) {
+                        console.error("failed to parse incoming mail (simpleParser)", err);
+                        callback(err);
+                    } else {
 
-                        const filename = uuid.v4() + ".json";
-                        const filepath = path.join(dataDir, filename);
-                        fs.writeFileSync(filepath, JSON.stringify(mail));
-
-                        if (onMailReceived) {
-                            onMailReceived({
-                                filename: filename,
-                                content: mail
-                            });
+                        // attachments are buffers, turn them into array before storing into database
+                        for (const attachment of mail.attachments) {
+                            attachment.content = Array.prototype.slice.call(attachment.content, 0);
                         }
 
-                    } catch (errSave) {
-                        console.log(chalk.red("error saving email in " + dataDir), errSave);
+                        console.log(chalk.green(mail.from.text) + " on " + mail.date + " : " + mail.subject);
+                        
+                        // add raw content so it can be viewed in the app
+                        mail.raw = raw;
+
+                        // save mail into the database
+                        database.mails.insert(mail, (err, doc) => {
+
+                            if (err) {
+                                console.error("failed to save email to database", err);
+                                callback(err);
+                            }
+
+                            // broadcast for UI update on all clients
+                            onMailReceived(doc);
+
+                            // callback for the smtp server
+                            callback();
+
+                        });
+
                     }
 
-                }
+                });
 
-                callback();
-
+            }).catch((err) => {
+                console.error(err);
+                callback(err);
             });
         }
     });

@@ -28,11 +28,12 @@ class MailDetails extends React.Component {
     componentDidUpdate() {
         try {
             const iframe = this.refs.iframe;
-            const document = iframe.contentDocument;
-            // const head = document.getElementsByTagName('head')[0];
-            document.body.innerHTML = this.props.mail.content.html;
-        } catch(e){
-            // fails when no mail is selected
+            if (iframe) {
+                const document = iframe.contentDocument;
+                document.body.innerHTML = this.props.mail.html;
+            }
+        } catch (e) {
+            console.error(e);
         }
     }
 
@@ -52,25 +53,28 @@ class MailDetails extends React.Component {
                 </ToolbarGroup>
             </Toolbar>
             <div className="MailDetails-Header">
-                <RecipientsRow label="From :" recipients={mail.content.from} />
-                <RecipientsRow label="To :" recipients={mail.content.to} />
-                <RecipientsRow label="Cc :" recipients={mail.content.cc} />
-                <RecipientsRow label="Bcc :" recipients={mail.content.bcc} />
+                <RecipientsRow label="From :" recipients={mail.from} />
+                <RecipientsRow label="To :" recipients={mail.to} />
+                <RecipientsRow label="Cc :" recipients={mail.cc} />
+                <RecipientsRow label="Bcc :" recipients={mail.bcc} />
                 <div className="MailDetails-HeaderRow">
                     <label>Date :</label>
-                    <div>{moment(mail.content.date).calendar()}</div>
+                    <div>{moment(mail.date).calendar()}</div>
                 </div>
                 <div className="MailDetails-HeaderRow">
                     <label>Subject :</label>
-                    <div>{mail.content.subject}</div>
+                    <div>{mail.subject}</div>
                 </div>
                 <div className="MailDetails-HeaderRow">
-                    <div className="MailDetails-Attachments">{mail.content.attachments.filter(att => !att.related).map((att, idx) => <AttachmentChip key={idx} attachment={att} onClick={() => this.onAttachmentClick(att)} />)}</div>
+                    <div className="MailDetails-Attachments">{
+                        mail.attachments.filter(att => !att.related).map((att, idx) =>
+                            <AttachmentChip key={idx} attachment={att} onClick={() => this.onAttachmentClick(att)} />)}
+                    </div>
                 </div>
             </div>
             <Divider />
             <div className="MailDetails-Content">
-                <iframe className="mail-iframe" frameBorder="0" ref="iframe" title={mail.content.subject} >
+                <iframe className="mail-iframe" frameBorder="0" ref="iframe" title={mail.subject} >
                 </iframe>
             </div>
         </div>;
@@ -80,7 +84,7 @@ class MailDetails extends React.Component {
 const mapStateToProps = (state, ownProps) => ({
     filename: state.currentMailFilename,
     mail: (state.mails && state.currentMailFilename) ?
-        state.mails.find(m => m.filename === state.currentMailFilename) :
+        state.mails.find(m => m._id === state.currentMailFilename) :
         null,
 });
 

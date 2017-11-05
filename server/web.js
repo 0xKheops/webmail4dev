@@ -7,7 +7,7 @@ const favicon = require("express-favicon");
 
 const mails = require("./mails");
 
-exports.startWebServer = function (port) {
+exports.startWebServer = function (port, database) {
 
     const app = express();
     const server = http.createServer(app);
@@ -16,20 +16,27 @@ exports.startWebServer = function (port) {
     // from here, we can push it to all clients
     const io = socket(server);
     const onMailReceived = function (mail) {
+
+        //cleanup email before broadcast (remove attachments)
+        for(const attachment of mail.attachments){
+            delete attachment.content;
+        }
+
         io.emit("action", { type: "RECEIVED_MAIL", mail });
     };
+
+    // register rest end points
+    const mailsApi = mails.getMailApi(database);
+    app.get("/api/mails", mailsApi.findAll);
+    app.get("/api/mails/:id/:filename", mailsApi.getAttachment);
+    app.delete("/api/mails/:id", mailsApi.deleteOne);
+    app.delete("/api/mails", mailsApi.deleteAll);
 
     // serve static content from ./dist
     const staticDir = path.join(__dirname, "../dist");
     app.use(favicon(path.join(staticDir, "favicon.ico"))); 
     app.use(express.static(staticDir));
   
-    // register rest end points
-    app.get("/api/mails", mails.findAll);
-    app.get("/api/mails/:mailFilename/:attachmentFilename", mails.getAttachment);
-    app.delete("/api/mails/:filename", mails.delete);
-    app.delete("/api/mails", mails.deleteAll);
-
     server.on("error", err => {
 
         console.log(chalk.red(`WEB/EXPRESS ERROR : ${err.message}`));

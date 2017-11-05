@@ -9,7 +9,7 @@ const mails = (state = [], action) => {
       return [...action.mails];
 
     case types.DELETE_MAIL_SUCCESS:
-      return state.filter(mail => mail.filename !== action.filename);
+      return state.filter(mail => mail._id !== action.filename);
 
     case types.RECEIVED_MAIL:
       notifyEmailReceived(action.mail);
