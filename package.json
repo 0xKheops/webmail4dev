@@ -1,6 +1,6 @@
 {
   "name": "webmail4dev",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "webmail4dev is a CLI/service which starts a local smtp server and a web server that displays all emails received by the smtp server.",
   "main": "start.js",
   "scripts": {
@@ -20,6 +20,8 @@
     "express-favicon": "^2.0.0",
     "mailparser": "^2.1.0",
     "meow": "^3.7.0",
+    "mmmagic": "^0.4.5",
+    "nedb": "^1.8.0",
     "os-service": "^1.4.2",
     "smtp-server": "^3.3.0",
     "socket.io": "^2.0.3",

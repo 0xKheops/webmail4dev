@@ -32,18 +32,17 @@ class MailList extends React.Component {
     }
 
     render() {
-
         return <div className="MailList">
             <div className="MailList-Content">
                 <SelectableList selectedFilename={this.props.currentMailFilename}>
                     <Subheader>Inbox</Subheader>
-                    {this.props.mails.map(m => <ListItem key={m.filename}
-                        value={m.filename}
-                        primaryText={m.content.from.value.length === 1 ?
-                            m.content.from.value[0].name || m.content.from.value[0].address :
-                            m.content.from.text}
-                        secondaryText={m.content.subject}
-                        onClick={() => this.onMailClick(m.filename)} />)}
+                    {this.props.mails.map(m => <ListItem key={m._id}
+                        value={m._id}
+                        primaryText={m.from.value.length === 1 ?
+                            m.from.value[0].name || m.from.value[0].address :
+                            m.from.text}
+                        secondaryText={m.subject}
+                        onClick={() => this.onMailClick(m._id)} />)}
                 </SelectableList>
             </div>
             <Toolbar className="MailList-Toolbar">

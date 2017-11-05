@@ -13,13 +13,13 @@ export const notifyEmailReceived = (mail) => {
         // Ensure user has give permission to use notifications
         if (Notification.permission === "granted") {
 
-            const title = mail.content.from.value.length === 1 ?
-                mail.content.from.value[0].name || mail.content.from.value[0].address :
-                mail.content.from.text
+            const title = mail.from.value.length === 1 ?
+                mail.from.value[0].name || mail.from.value[0].address :
+                mail.from.text
 
             // Si c'est ok, créons une notification
             const notification = new Notification(title, {
-                body: mail.content.subject,
+                body: mail.subject,
                 icon: "/favicon.ico",
                 data: mail.filename,
             });
@@ -30,7 +30,7 @@ export const notifyEmailReceived = (mail) => {
                 notification.close();
 
                 if (currentStore) {
-                    currentStore.dispatch(actions.displayMail(mail.filename));
+                    currentStore.dispatch(actions.displayMail(mail._id));
                 }
 
             };

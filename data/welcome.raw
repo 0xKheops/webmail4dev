@@ -1,0 +1,20 @@
+Content-Type: multipart/alternative;
+ boundary="--_NmP-3119d5d3e0bec5aa-Part_1"
+From: webmail4dev <welcome@webmail.dev>
+To: you@webmail.dev
+Subject: Hello !
+Message-ID: <7f7023c6-a9e0-18a6-b475-acf09d4cbe0b@webmail.dev>
+Date: Sun, 05 Nov 2017 14:26:01 +0000
+MIME-Version: 1.0
+
+----_NmP-3119d5d3e0bec5aa-Part_1
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
+
+Welcome to webmail4dev
+----_NmP-3119d5d3e0bec5aa-Part_1
+Content-Type: text/html
+Content-Transfer-Encoding: 7bit
+
+<b>Welcome to webmail4dev</b>
+----_NmP-3119d5d3e0bec5aa-Part_1--
