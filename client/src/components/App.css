@@ -91,6 +91,7 @@
 }
 
 .MailList{
+  position:relative;
   display:flex;
   flex-direction: column;
   height:100%;
@@ -104,12 +105,12 @@
 
 .MailList-List{
   height:100%;
-}
-.MailList-Toolbar{
+} 
+/* .MailList-Toolbar{
   position:sticky;
   bottom:0;
   left:0;
-}
+} */
 
 .mail-iframe{
   position: absolute;
