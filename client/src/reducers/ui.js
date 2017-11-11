@@ -21,10 +21,16 @@ const ui = (state = initialState, action) => {
       };
 
     case types.DELETE_MAIL_SUCCESS:
-      return state === action.id ? null : state;
+      return {
+        ...state,
+        mailId: state.mailId === action.id ? null : state.mailId
+      };
 
     case types.DELETE_MAILS_SUCCESS:
-      return null;
+      return {
+        ...state,
+        mailId: null
+      };
 
     default:
       return state;

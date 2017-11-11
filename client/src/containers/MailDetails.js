@@ -18,15 +18,8 @@ class MailDetails extends React.Component {
   }
 
   onAttachmentClick(attachment) {
-    this.props.actions.getAttachment(this.props.mailId, attachment.filename);
+    this.props.actions.downloadAttachment(this.props.mailId, attachment.filename);
   }
-
-  //   componentDidMount() {
-  //     if (this.props.mail && !this.mail.loaded) {
-  //       //console.log("mounting", )
-  //       this.props.actions.fetchMail(this.props.mailId);
-  //     }
-  //   }
 
   componentDidUpdate() {
     const { mailId, mail, actions } = this.props;

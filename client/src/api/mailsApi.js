@@ -9,7 +9,7 @@ export class mailsApi {
     return await req.json();
   }
 
-  static async deleteAllMails() {
+  static async deleteMails() {
     await fetch("/api/mails", {
       method: "DELETE",
       headers: {
@@ -31,7 +31,7 @@ export class mailsApi {
     });
   }
 
-  static getAttachment(id, filename) {
+  static downloadAttachment(id, filename) {
     const fileUrl =
       "/api/mails/" +
       encodeURI(id) +

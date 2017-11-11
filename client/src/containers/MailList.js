@@ -33,7 +33,7 @@ class MailList extends React.Component {
   }
 
   onDeleteAllClick() {
-    this.props.actions.deleteAllMails();
+    this.props.actions.deleteMails();
   }
 
   render() {
@@ -80,7 +80,7 @@ class MailList extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
   mails: state.mails,
-  mailId: state.ui.mailId
+  mailId: state.ui.mailId ? state.ui.mailId : null
 });
 
 const mapDispatchToProps = dispatch => ({

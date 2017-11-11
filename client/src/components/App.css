@@ -8,10 +8,6 @@
   flex-direction: column;
 }
 
-.App-AppBar{
-
-}
-
 .App-workspace{
   display:flex;
   flex-direction: row;
