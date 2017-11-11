@@ -51,7 +51,7 @@ class MailList extends React.Component {
             ))}
           </SelectableList>
         </div>
-        <div  className="MailList-Toolbar">
+        <div>
           <Toolbar>
             <ToolbarGroup firstChild={true}>
               <RaisedButton
