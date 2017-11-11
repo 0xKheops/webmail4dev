@@ -16,12 +16,46 @@ export function loadMails() {
     };
 }
 
-export const displayMail = (filename) => ({
-    type: types.DISPLAY_MAIL,
-    filename
+const fetchMailRequest = (id) => ({
+    type:types.FETCH_MAIL_REQUEST,
+    id
 })
 
-const deleteAllMailsSuccess = (filename) => ({
+const fetchMailSuccess = (mail) => ({
+    type:types.FETCH_MAIL_SUCCESS,
+    mail
+})
+
+const fetchMailFailure = (error) => ({
+    type:types.FETCH_MAIL_FAILURE,
+    error
+})
+
+export function fetchMail(id){
+    return async function (dispatch) {
+    
+        dispatch(fetchMailRequest(id))
+    
+        try{
+
+            const mail = await mailsApi.getMail(id);
+            dispatch(fetchMailSuccess(mail));
+
+        }
+        catch(err){
+
+            dispatch(fetchMailFailure(err));
+
+        }
+      }
+}
+
+export const displayMail = (id) => ({
+    type: types.DISPLAY_MAIL,
+    id
+})
+
+const deleteAllMailsSuccess = () => ({
     type: types.DELETE_MAILS_SUCCESS
 })
 
@@ -35,30 +69,30 @@ export function deleteAllMails() {
     };
 }
 
-const deleteMailSuccess = (filename) => ({
+const deleteMailSuccess = (id) => ({
     type: types.DELETE_MAIL_SUCCESS,
-    filename
+    id
 })
 
-export function deleteMail(filename) {
+export function deleteMail(id) {
     // make async call to api, handle promise, dispatch action when promise is resolved
     return async function (dispatch) {
 
-        await mailsApi.deleteMail(filename);
-        dispatch(deleteMailSuccess(filename));
+        await mailsApi.deleteMail(id);
+        dispatch(deleteMailSuccess(id));
 
     };
 }
 
-export const getAttachment = (mailFilename, attachmentFilename) => {
+export const getAttachment = (id, filename) => {
 
     // download directly, there is no reducer for this action
-    mailsApi.getAttachment(mailFilename, attachmentFilename);
+    mailsApi.getAttachment(id, filename);
 
     // trace an action for the hell of it :)
     return {
         type: types.GET_ATTACHMENT,
-        mailFilename,
-        attachmentFilename
+        id,
+        filename
     }
 };

@@ -16,14 +16,20 @@ class MailList extends React.Component {
     super(props, context);
 
     this.state = {
-      mails: Object.assign([], [...this.props.mails]),
-      currentMailFilename: props.currentMailFilename
+      //mails: Object.assign([], [...this.props.mails]),
+      //currentMailFilename: props.currentMailFilename
     };
   }
 
-  onMailClick(filename) {
-    if (filename !== this.state.currentMailFilename)
-      this.props.actions.displayMail(filename);
+  onMailClick(id) {
+    if (id !== this.props.mailId) {
+      // initiate loading if not loaded yet
+    //   if (this.props.mails.find(m => m._id === id && m.loaded) == null)
+    //     this.props.actions.fetchMail(id);
+
+      // display
+      this.props.actions.displayMail(id);
+    }
   }
 
   onDeleteAllClick() {
@@ -34,7 +40,7 @@ class MailList extends React.Component {
     return (
       <div className="MailList">
         <div className="MailList-Content">
-          <SelectableList selectedFilename={this.props.currentMailFilename}>
+          <SelectableList selectedMailId={this.props.mailId}>
             <Subheader>Inbox</Subheader>
             {this.props.mails.map(m => (
               <ListItem
@@ -73,8 +79,8 @@ class MailList extends React.Component {
 // }
 
 const mapStateToProps = (state, ownProps) => ({
-  mails: [...state.mails],
-  currentMailFilename: state.currentMailFilename
+  mails: state.mails,
+  mailId: state.ui.mailId
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,6 +1,7 @@
 const smtp = require("./smtp");
 const web = require("./web");
-const chalk = require("chalk");
+const ip = require("ip");
+
 const { getDatabase } = require("./database");
 
 exports.startServer = function (smtpPort, webPort, dataDir) {
@@ -15,9 +16,17 @@ exports.startServer = function (smtpPort, webPort, dataDir) {
 
     // set a timeout because if smtp or web server fail, it will be asynchronously
     setTimeout(() => {
-        console.log(chalk.green(`
-Browse emails on http://localhost:${webPort}
-`));
+        console.log("");
+        console.log("Browse webmail4dev on :");
+        console.log("");
+        console.log(`   http://localhost:${webPort}`);
+        console.log(`   http://${ip.address()}:${webPort}`);
+        console.log("");
+        // for(const ni of os.networkInterfaces()){
+        //     console.log(`http://${ni}:${webPort}`);
+        // }
+
+
     }, 200);
 
 };

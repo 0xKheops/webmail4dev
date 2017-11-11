@@ -15,7 +15,7 @@ function wrapState(ComposedComponent) {
 
         render() {
             return (
-                <ComposedComponent value={this.props.selectedFilename} >
+                <ComposedComponent value={this.props.selectedMailId} >
                     {this.props.children}
                 </ComposedComponent>
             );
