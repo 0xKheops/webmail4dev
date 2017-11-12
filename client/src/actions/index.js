@@ -1,15 +1,15 @@
-import { fetchMail } from "./fetchMail";
-import { fetchMails } from "./fetchMails";
+import { fetchOneMail } from "./fetchOneMail";
+import { fetchAllMails } from "./fetchAllMails";
 import { displayMail } from "./displayMail";
-import { deleteMails } from "./deleteMails";
-import { deleteMail } from "./deleteMail";
+import { deleteAllMails } from "./deleteAllMails";
+import { deleteOneMail } from "./deleteOneMail";
 import { downloadAttachment } from "./downloadAttachment";
 
 export {
-  fetchMail,
-  fetchMails,
+  fetchOneMail,
+  fetchAllMails,
   displayMail,
-  deleteMails,
-  deleteMail,
+  deleteAllMails,
+  deleteOneMail,
   downloadAttachment
 };

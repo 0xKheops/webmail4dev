@@ -33,7 +33,7 @@ class MailList extends React.Component {
   }
 
   onDeleteAllClick() {
-    this.props.actions.deleteMails();
+    this.props.actions.deleteAllMails();
   }
 
   render() {

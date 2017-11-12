@@ -14,7 +14,7 @@ import AttachmentChip from "../components/AttachmentChip";
 
 class MailDetails extends React.Component {
   onDeleteClick() {
-    this.props.actions.deleteMail(this.props.mailId);
+    this.props.actions.deleteOneMail(this.props.mailId);
   }
 
   onAttachmentClick(attachment) {
@@ -24,8 +24,8 @@ class MailDetails extends React.Component {
   componentDidUpdate() {
     const { mailId, mail, actions } = this.props;
 
-    if (mailId && mail && !mail.loaded && !mail.loading) {
-      actions.fetchMail(mailId);
+    if (mailId && mail && !mail.loaded && !mail.loading && !mail.error) {
+      actions.fetchOneMail(mailId);
     } else {
       try {
         const iframe = this.refs.iframe;
@@ -46,7 +46,7 @@ class MailDetails extends React.Component {
       return <Loader />;
     }
 
-    if (!mail || !mail.loaded) {
+    if (!mail || !mail.loaded || mail.error) {
       return null;
     }
 
@@ -117,7 +117,7 @@ const mapStateToProps = (state, ownProps) => ({
   loading:
     state.mails &&
     state.ui.mailId &&
-    state.mails.find(m => m._id === state.ui.mailId && m.loading) != null
+    state.mails.find(m => m._id === state.ui.mailId && m.loading) != null,
 });
 
 const mapDispatchToProps = dispatch => ({
