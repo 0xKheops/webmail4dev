@@ -18,7 +18,10 @@ class MailDetails extends React.Component {
   }
 
   onAttachmentClick(attachment) {
-    this.props.actions.downloadAttachment(this.props.mailId, attachment.filename);
+    this.props.actions.downloadAttachment(
+      this.props.mailId,
+      attachment.filename
+    );
   }
 
   componentDidUpdate() {
@@ -40,7 +43,7 @@ class MailDetails extends React.Component {
   }
 
   render() {
-    const { mail, loading } = this.props;
+    const { mail, loading, actions } = this.props;
 
     if (loading) {
       return <Loader />;
@@ -51,6 +54,10 @@ class MailDetails extends React.Component {
     }
 
     try {
+      if (!mail.read) {
+        actions.readMail(mail._id);
+      }
+
       return (
         <div className="MailDetails">
           <Toolbar>
@@ -117,7 +124,7 @@ const mapStateToProps = (state, ownProps) => ({
   loading:
     state.mails &&
     state.ui.mailId &&
-    state.mails.find(m => m._id === state.ui.mailId && m.loading) != null,
+    state.mails.find(m => m._id === state.ui.mailId && m.loading) != null
 });
 
 const mapDispatchToProps = dispatch => ({

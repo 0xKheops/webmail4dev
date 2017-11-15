@@ -46,8 +46,9 @@ class MailList extends React.Component {
               <ListItem
                 key={m._id}
                 value={m._id}
+                style={{fontWeight:m.read ? "normal" : "bold"}}
                 primaryText={
-                  m.from.value.length === 1
+                  (m.from.value && m.from.value.length === 1)
                     ? m.from.value[0].name || m.from.value[0].address
                     : m.from.text
                 }

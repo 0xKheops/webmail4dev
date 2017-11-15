@@ -28,19 +28,27 @@ const mails = (state = [], action) => {
         };
       });
 
-    case types.FETCH_ONE_MAIL_ERROR:
-    return state.map((mail, idx) => {
-      if (mail._id !== action.id) return mail;
+    case types.READ_MAIL_SUCCESS:
+      return state.map((mail, idx) => {
+        if (mail._id !== action.id) return mail;
 
-      //overwrite all properties with the full mail object
-      return {
-        ...mail,
-        ...action.mail,
-        loaded: true,
-        loading: false,
-        error: action.message
-      };
-    });
+        //overwrite all properties with the full mail object
+        return { ...mail, read: true };
+      });
+
+    case types.FETCH_ONE_MAIL_ERROR:
+      return state.map((mail, idx) => {
+        if (mail._id !== action.id) return mail;
+
+        //overwrite all properties with the full mail object
+        return {
+          ...mail,
+          ...action.mail,
+          loaded: true,
+          loading: false,
+          error: action.message
+        };
+      });
 
     case types.FETCH_ONE_MAIL_SUCCESS:
       return state.map((mail, idx) => {
