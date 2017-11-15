@@ -4,6 +4,7 @@ const socket = require("socket.io");
 const path = require("path");
 const chalk = require("chalk");
 const favicon = require("express-favicon");
+const bodyParser = require("body-parser");
 
 const mails = require("./mails");
 
@@ -22,9 +23,14 @@ exports.startWebServer = function (port, database) {
             delete attachment.content;
         }
 
+        //TODO send only headers
+
         io.emit("action", { type: "RECEIVED_MAIL", mail });
     };
-
+    
+    //support for json payload
+    app.use(bodyParser.json());
+    
     // register rest end points
     const mailsApi = mails.getMailApi(database);
     app.get("/api/mails", mailsApi.findAll);
@@ -32,6 +38,7 @@ exports.startWebServer = function (port, database) {
     app.get("/api/mails/:id/:filename", mailsApi.getAttachment);
     app.delete("/api/mails/:id", mailsApi.deleteOne);
     app.delete("/api/mails", mailsApi.deleteAll);
+    app.post("/api/mails/:id", mailsApi.updateOne);
 
     // serve static content from ./dist
     const staticDir = path.join(__dirname, "../dist");

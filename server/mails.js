@@ -1,8 +1,7 @@
 const findAll = function(req, res) {
-  
-    console.log("findAll");
-    
-    this.database.mails
+  console.log("findAll");
+
+  this.database.mails
     .find({}, { from: 1, date: 1, subject: 1, read: 1 })
     .sort({ date: -1 })
     .exec((err, mails) => {
@@ -20,7 +19,7 @@ const findOne = function(req, res) {
     const mailId = req.params.id;
 
     console.log("findOne", mailId);
-    
+
     this.database.mails.findOne({ _id: mailId }, (err, mail) => {
       if (err) {
         console.error(err);
@@ -75,6 +74,41 @@ const getAttachment = function(req, res) {
   }
 };
 
+const updateOne = function(req, res) {
+  const id = req.params.id;
+  const body = req.body;
+
+  console.log("updateOne", id, body);
+
+  // keep only the "read" property (for now)
+  const update = {};
+  for (const i in body) {
+    if (i === "read") {
+      update[i] = body[i];
+    }
+  }
+
+  this.database.mails.update({ _id: id }, {$set:update}, {}, (err, numReplaced) => {
+    if (err || (numReplaced === 0)) {
+      console.error(err);
+      res.status(404).send("failed to update email " + id, err);
+    } else {
+      res.status(204).send();
+    }
+  });
+
+  
+
+  // this.database.mails.remove({ _id: id }, {}, function(err) {
+  //   if (err) {
+  //     console.error(err);
+  //     res.status(404).send("could not find email " + id, err);
+  //   } else {
+  //     res.send(id + " deleted");
+  //   }
+  // });
+};
+
 const deleteOne = function(req, res) {
   const id = req.params.id;
 
@@ -112,6 +146,7 @@ exports.getMailApi = function(database) {
     database,
     findAll: findAll.bind(api),
     findOne: findOne.bind(api),
+    updateOne: updateOne.bind(api),
     getAttachment: getAttachment.bind(api),
     deleteOne: deleteOne.bind(api),
     deleteAll: deleteAll.bind(api)

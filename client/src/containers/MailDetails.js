@@ -12,13 +12,18 @@ import RecipientsRow from "../components/RecipientsRow";
 import Loader from "../components/Loader";
 import AttachmentChip from "../components/AttachmentChip";
 
+import PropTypes from "prop-types";
+
 class MailDetails extends React.Component {
   onDeleteClick() {
     this.props.actions.deleteOneMail(this.props.mailId);
   }
 
   onAttachmentClick(attachment) {
-    this.props.actions.downloadAttachment(this.props.mailId, attachment.filename);
+    this.props.actions.downloadAttachment(
+      this.props.mailId,
+      attachment.filename
+    );
   }
 
   componentDidUpdate() {
@@ -39,8 +44,23 @@ class MailDetails extends React.Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    try {
+      // update if current mail changes
+      if (this.props.mailId !== nextProps.mailId) return true;
+
+      // update if new mails are received
+      if (this.props.loading !== nextProps.loading) return true;
+
+      return false;
+    } catch (err) {
+      console.error(err);
+      return true;
+    }
+  }
+
   render() {
-    const { mail, loading } = this.props;
+    const { mail, loading, actions } = this.props;
 
     if (loading) {
       return <Loader />;
@@ -51,6 +71,10 @@ class MailDetails extends React.Component {
     }
 
     try {
+      if (!mail.read) {
+        actions.readMail(mail._id);
+      }
+
       return (
         <div className="MailDetails">
           <Toolbar>
@@ -108,6 +132,12 @@ class MailDetails extends React.Component {
   }
 }
 
+MailDetails.propTypes = {
+  mail: PropTypes.object,
+  mailId: PropTypes.string,
+  loading: PropTypes.bool
+};
+
 const mapStateToProps = (state, ownProps) => ({
   mailId: state.ui.mailId,
   mail:
@@ -117,7 +147,7 @@ const mapStateToProps = (state, ownProps) => ({
   loading:
     state.mails &&
     state.ui.mailId &&
-    state.mails.find(m => m._id === state.ui.mailId && m.loading) != null,
+    state.mails.find(m => m._id === state.ui.mailId && m.loading) != null
 });
 
 const mapDispatchToProps = dispatch => ({

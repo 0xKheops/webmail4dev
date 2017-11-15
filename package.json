@@ -1,6 +1,6 @@
 {
   "name": "webmail4dev",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "webmail4dev is a CLI/service which starts a local smtp server and a web server that displays all emails received by the smtp server.",
   "main": "start.js",
   "scripts": {
@@ -14,6 +14,7 @@
   "author": "Arnault Nouvel <arnault.nouvel@wisepoint.fr>",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "chalk": "^2.3.0",
     "concurrently": "^3.5.0",
     "express": "^4.16.2",

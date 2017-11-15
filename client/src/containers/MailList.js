@@ -9,24 +9,30 @@ import RaisedButton from "material-ui/RaisedButton";
 import { Toolbar, ToolbarGroup } from "material-ui/Toolbar";
 import SelectableList from "../components/SelectableList";
 
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 
 class MailList extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+  // constructor(props, context) {
+  //   super(props, context);
+  // }
 
-    this.state = {
-      //mails: Object.assign([], [...this.props.mails]),
-      //currentMailFilename: props.currentMailFilename
-    };
+  shouldComponentUpdate(nextProps, nextState) {
+    try {
+      // update if current mail changes
+      if (this.props.mailId !== nextProps.mailId) return true;
+
+      // update if new mails are received
+      if (this.props.mails.length !== nextProps.mails.length) return true;
+
+      return false;
+    } catch (err) {
+      console.error(err);
+      return true;
+    }
   }
 
   onMailClick(id) {
     if (id !== this.props.mailId) {
-      // initiate loading if not loaded yet
-    //   if (this.props.mails.find(m => m._id === id && m.loaded) == null)
-    //     this.props.actions.fetchMail(id);
-
       // display
       this.props.actions.displayMail(id);
     }
@@ -46,8 +52,9 @@ class MailList extends React.Component {
               <ListItem
                 key={m._id}
                 value={m._id}
+                style={{ fontWeight: m.read ? "normal" : "bold" }}
                 primaryText={
-                  m.from.value.length === 1
+                  m.from.value && m.from.value.length === 1
                     ? m.from.value[0].name || m.from.value[0].address
                     : m.from.text
                 }
@@ -73,10 +80,10 @@ class MailList extends React.Component {
   }
 }
 
-// MailList.propTypes = {
-//     mails: PropTypes.array.isRequired,
-//     currentMailFilename: PropTypes.string,
-// }
+MailList.propTypes = {
+    mails: PropTypes.array.isRequired,
+    mailId: PropTypes.string,
+}
 
 const mapStateToProps = (state, ownProps) => ({
   mails: state.mails,

@@ -15,6 +15,20 @@ export class mailsApi {
     return await req.json();
   }
 
+  static async readMail(id){
+    const req = await fetch("/api/mails/" + id, {
+      method: "POST",
+      body:JSON.stringify({read:true}),
+      headers: {
+        Accept: "application/JSON",
+        "Content-Type": "application/JSON"
+      },
+      credentials: "same-origin"
+    });
+
+    if (!req.ok) throw new Error(`${req.status} ${req.statusText}`);
+  }
+
   static async deleteAllMails() {
     const req = await fetch("/api/mails", {
       method: "DELETE",
