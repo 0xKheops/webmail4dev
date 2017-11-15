@@ -12,6 +12,8 @@ import RecipientsRow from "../components/RecipientsRow";
 import Loader from "../components/Loader";
 import AttachmentChip from "../components/AttachmentChip";
 
+import PropTypes from "prop-types";
+
 class MailDetails extends React.Component {
   onDeleteClick() {
     this.props.actions.deleteOneMail(this.props.mailId);
@@ -39,6 +41,21 @@ class MailDetails extends React.Component {
       } catch (e) {
         console.error(e);
       }
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    try {
+      // update if current mail changes
+      if (this.props.mailId !== nextProps.mailId) return true;
+
+      // update if new mails are received
+      if (this.props.loading !== nextProps.loading) return true;
+
+      return false;
+    } catch (err) {
+      console.error(err);
+      return true;
     }
   }
 
@@ -114,6 +131,12 @@ class MailDetails extends React.Component {
     }
   }
 }
+
+MailDetails.propTypes = {
+  mail: PropTypes.object,
+  mailId: PropTypes.string,
+  loading: PropTypes.bool
+};
 
 const mapStateToProps = (state, ownProps) => ({
   mailId: state.ui.mailId,
