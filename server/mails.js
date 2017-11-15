@@ -1,7 +1,6 @@
 const findAll = function(req, res) {
   
     console.log("findAll");
-    throw "bordel";
     
     this.database.mails
     .find({}, { from: 1, date: 1, subject: 1, read: 1 })
