@@ -4,6 +4,7 @@ import { displayMail } from "./displayMail";
 import { deleteAllMails } from "./deleteAllMails";
 import { deleteOneMail } from "./deleteOneMail";
 import { downloadAttachment } from "./downloadAttachment";
+import { readMail } from "./readMail";
 
 export {
   fetchOneMail,
@@ -11,5 +12,6 @@ export {
   displayMail,
   deleteAllMails,
   deleteOneMail,
-  downloadAttachment
+  downloadAttachment,
+  readMail
 };
