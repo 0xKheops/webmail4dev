@@ -1,12 +1,29 @@
 
-// load mails
-export const DISPLAY_MAILS_SUCCESS = 'DISPLAY_MAILS_SUCCESS';
+// fetchAllMails
+export const FETCH_ALL_MAILS_REQUEST = 'FETCH_ALL_MAILS_REQUEST';
+export const FETCH_ALL_MAILS_SUCCESS = 'FETCH_ALL_MAILS_SUCCESS';
+export const FETCH_ALL_MAILS_ERROR = 'FETCH_ALL_MAILS_ERROR';
+
+// fetchOneMail
+export const FETCH_ONE_MAIL_REQUEST = "FETCH_MAIL_REQUEST";
+export const FETCH_ONE_MAIL_SUCCESS = "FETCH_MAIL_SUCCESS";
+export const FETCH_ONE_MAIL_ERROR = "FETCH_MAIL_ERROR";
+
+// deleteAllMails
+export const DELETE_ALL_MAILS_REQUEST = 'DELETE_ALL_MAILS_REQUEST';
+export const DELETE_ALL_MAILS_SUCCESS = 'DELETE_ALL_MAILS_SUCCESS';
+export const DELETE_ALL_MAILS_ERROR = 'DELETE_ALL_MAILS_ERROR';
+
+// deleteOneMail
+export const DELETE_ONE_MAIL_REQUEST = 'DELETE_ONE_MAIL_REQUEST';
+export const DELETE_ONE_MAIL_SUCCESS = 'DELETE_ONE_MAIL_SUCCESS';
+export const DELETE_ONE_MAIL_ERROR = 'DELETE_ONE_MAIL_ERROR';
+
+//displayMail
 export const DISPLAY_MAIL = 'DISPLAY_MAIL';
+
+//sent by server
 export const RECEIVED_MAIL = "RECEIVED_MAIL";
 
-// delete mails
-export const DELETE_MAILS_SUCCESS = 'DELETE_MAILS_SUCCESS';
-export const DELETE_MAIL_SUCCESS = 'DELETE_MAIL_SUCCESS';
-
-// attachments
+// downloadAttachments
 export const GET_ATTACHMENT = 'GET_ATTACHMENT';

@@ -1,50 +1,54 @@
 export class mailsApi {
+  static async getAllMails() {
+    const req = await fetch("/api/mails");
 
-    static async getAllMails() {
+    if (!req.ok) throw new Error(`${req.status} ${req.statusText}`);
 
-        const req = await fetch("/api/mails");
-        return await req.json();
+    return await req.json();
+  }
 
-    }
+  static async getMail(id) {
+    const req = await fetch("/api/mails/" + id);
 
-    static async deleteAllMails() {
+    if (!req.ok) throw new Error(`${req.status} ${req.statusText}`);
 
-        await fetch("/api/mails", {
-            method: 'DELETE',
-            headers: {
-                Accept: 'application/JSON',
-                'Content-Type': 'application/JSON'
-            },
-            credentials: 'same-origin'
-        });
+    return await req.json();
+  }
 
-    }
+  static async deleteAllMails() {
+    const req = await fetch("/api/mails", {
+      method: "DELETE",
+      headers: {
+        Accept: "application/JSON",
+        "Content-Type": "application/JSON"
+      },
+      credentials: "same-origin"
+    });
 
-    static async deleteMail(filename) {
+    if (!req.ok) throw new Error(`${req.status} ${req.statusText}`);
+  }
 
-        await fetch("/api/mails/" + filename, {
-            method: 'DELETE',
-            headers: {
-                Accept: 'application/JSON',
-                'Content-Type': 'application/JSON'
-            },
-            credentials: 'same-origin'
-        })
+  static async deleteOneMail(id) {
+    const req = await fetch("/api/mails/" + id, {
+      method: "DELETE",
+      headers: {
+        Accept: "application/JSON",
+        "Content-Type": "application/JSON"
+      },
+      credentials: "same-origin"
+    });
 
-    }
+    if (!req.ok) throw new Error(`${req.status} ${req.statusText}`);
+  }
 
-    static getAttachment(mailFilename, attachmentFilename) {
+  static downloadAttachment(id, filename) {
+    const fileUrl = "/api/mails/" + encodeURI(id) + "/" + encodeURI(filename);
 
-        
-        const fileUrl = "/api/mails/" + encodeURI(mailFilename) + "/" + encodeURI(attachmentFilename);
-        
-        var a = document.createElement("a");
-        document.body.appendChild(a);
-        a.style["display"] = "none";
-        a.href = fileUrl;
-        a.download = attachmentFilename;
-        a.click();
-
-    }
-
+    var a = document.createElement("a");
+    document.body.appendChild(a);
+    a.style["display"] = "none";
+    a.href = fileUrl;
+    a.download = filename;
+    a.click();
+  }
 }

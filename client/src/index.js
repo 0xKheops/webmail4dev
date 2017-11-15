@@ -12,12 +12,12 @@ import App from './components/App';
 import { Provider } from 'react-redux'
 import { configureStore } from "./configureStore";
 import registerServiceWorker from './registerServiceWorker';
-import { loadMails } from "./actions";
+import { fetchAllMails } from "./actions";
 import { registerNotifications } from "./utilities/notifications";
 
 // setup redux store
 const store = configureStore();
-store.dispatch(loadMails());
+store.dispatch(fetchAllMails());
 
 // request permission for notifications
 registerNotifications(store);
