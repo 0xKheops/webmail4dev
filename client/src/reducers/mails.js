@@ -1,6 +1,5 @@
 import * as types from "../actions/actionTypes";
 import { notifyEmailReceived } from "../utilities/notifications";
-import * as moment from "moment";
 
 const mails = (state = [], action) => {
   switch (action.type) {
