@@ -11,6 +11,7 @@ import { Toolbar, ToolbarGroup } from "material-ui/Toolbar";
 import RecipientsRow from "../components/RecipientsRow";
 import Loader from "../components/Loader";
 import AttachmentChip from "../components/AttachmentChip";
+import MailContent from "../components/MailContent"
 
 import PropTypes from "prop-types";
 
@@ -31,28 +32,23 @@ class MailDetails extends React.Component {
 
     if (mailId && mail && !mail.loaded && !mail.loading && !mail.error) {
       actions.fetchOneMail(mailId);
-    } else {
-      try {
-        const iframe = this.refs.iframe;
-        if (iframe) {
-          const document = iframe.contentDocument;
-          document.body.innerHTML = mail.html;
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    }
+    } 
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     try {
       // update if current mail changes
-      if (this.props.mailId !== nextProps.mailId) return true;
+      if (this.props.mailId !== nextProps.mailId) {
+        return true;
+      }
 
       // update if new mails are received
-      if (this.props.loading !== nextProps.loading) return true;
+      if (this.props.loading !== nextProps.loading) {
+        return true;
+      }
 
       return false;
+
     } catch (err) {
       console.error(err);
       return true;
@@ -116,12 +112,7 @@ class MailDetails extends React.Component {
           </div>
           <Divider />
           <div className="MailDetails-Content">
-            <iframe
-              className="mail-iframe"
-              frameBorder="0"
-              ref="iframe"
-              title={mail.subject}
-            />
+            <MailContent html={mail.html} />
           </div>
         </div>
       );
