@@ -6,17 +6,17 @@
     "babel-polyfill": "^6.26.0",
     "deep-equal": "^1.0.1",
     "material-ui": "^0.19.4",
-    "moment": "^2.19.1",
-    "prop-types": "^15.6.0",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-redux": "^5.0.6",
-    "react-router": "^4.2.0",
+    "moment": "^2.22.2",
+    "prop-types": "^15.6.2",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
     "react-scripts": "1.0.14",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-socket.io": "^1.4.0",
-    "redux-thunk": "^2.2.0",
+    "redux-thunk": "^2.3.0",
     "typeface-roboto": "0.0.35"
   },
   "scripts": {
@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "cpx": "^1.5.0",
-    "redux-devtools": "^3.4.0",
+    "redux-devtools": "^3.4.1",
     "rimraf": "^2.6.2"
   }
 }
