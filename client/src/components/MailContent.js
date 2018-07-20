@@ -26,7 +26,6 @@ export default class MailContent extends React.Component {
         const { iframe } = this;
         if (iframe && iframe.contentDocument.body.innerHTML !== html) {
             iframe.contentDocument.body.innerHTML = html;
-            console.log("iframe", iframe.contentDocument)
 
             //add <base target="_blank" /> in head
             const base = iframe.contentDocument.createElement("base");
