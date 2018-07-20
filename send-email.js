@@ -16,7 +16,7 @@ const mailTemplates = [
     to: "you@webmail.dev", // list of receivers
     subject: "Hello !", // Subject line
     text: "Welcome to webmail4dev", // plain text body
-    html: "<b>Welcome to webmail4dev</b>" // html body
+    html: "<b>Welcome to webmail4dev</b><div><a href='https://github.com/ArnaultNouvel/webmail4dev'>webmail4dev</a></div>" // html body
   },
   {
     from: "\"webmail4dev\" <welcome@webmail.dev>", // sender address
@@ -37,7 +37,7 @@ const mailTemplates = [
     to: "you@webmail.dev", // list of receivers
     subject: "Hello attachment!", // Subject line
     text: "Welcome to webmail4dev", // plain text body
-    html: "<b>Welcome to webmail4dev</b>", // html body
+    html: "<b>Welcome to webmail4dev</b><div><a href='https://github.com/ArnaultNouvel/webmail4dev'>webmail4dev</a></div>", // html body
     attachments: [
       {
         filename: "README.md",
